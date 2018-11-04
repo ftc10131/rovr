@@ -36,6 +36,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import rovr.robot.Robot;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -56,13 +58,14 @@ public class Teleop extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-
+    Robot hyrule;
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
         // Tell the driver that initialization is complete.
+        hyrule = new Robot();
         telemetry.addData("Status", "Initialized");
     }
 
@@ -79,6 +82,7 @@ public class Teleop extends OpMode
     @Override
     public void start() {
         runtime.reset();
+        hyrule.start();
     }
 
     /*
@@ -87,6 +91,7 @@ public class Teleop extends OpMode
     @Override
     public void loop() {
 
+        hyrule.driveTrain.holoDrive(gamepad1.left_stick_x , gamepad1.left_stick_y , gamepad1.right_stick_x);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
@@ -96,6 +101,7 @@ public class Teleop extends OpMode
      */
     @Override
     public void stop() {
+        hyrule.stop();
     }
 
 }

@@ -10,13 +10,13 @@ import rovr.util.Param;
 
 public class Robot {
 
-    DriveTrain driveTrain;
-    MineralDumper blockDumper;
-    MineralDumper ballDumper;
-    Hanger hanger;
-    Ploop ploop;
-    Intake intake;
-    MarkerDumper markerDumper;
+    public DriveTrain driveTrain;
+    public MineralDumper blockDumper;
+    public MineralDumper ballDumper;
+    public Hanger hanger;
+    public Ploop ploop;
+    public Intake intake;
+    public MarkerDumper markerDumper;
 
     HardwareMap hardwareMap;
 
