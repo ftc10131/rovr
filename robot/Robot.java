@@ -3,6 +3,7 @@ package rovr.robot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class Robot {
         intake = new Intake("intake", hardwareMap);
         markerDumper = new MarkerDumper("markerDumper", hardwareMap);
         sorter = new Sorter("sorter", hardwareMap);
+
+        mechanisms = new ArrayList<Mechanism>();
 
         mechanisms.add(driveTrain);
         mechanisms.add(blockDumper);
