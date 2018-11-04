@@ -57,15 +57,17 @@ import rovr.robot.Robot;
 public class Teleop extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    Robot hyrule;
+    Robot hyrule ;
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
+        //hyrule = new Robot(hardwareMap);
         // Tell the driver that initialization is complete.
-        hyrule = new Robot();
+        hyrule =new Robot(hardwareMap);
+        hyrule.init();
         telemetry.addData("Status", "Initialized");
     }
 
@@ -91,23 +93,28 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
-        hyrule.driveTrain.holoDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+        hyrule.driveTrain.holoDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+
         if (gamepad1.dpad_up) {
             hyrule.hanger.lock();
         }
+
         if (gamepad1.dpad_down) {
             hyrule.hanger.unlock();
         }
+
         if (gamepad2.left_stick_y < -0.5) {
             hyrule.hanger.liftRobot();
         } else if (gamepad2.left_stick_y > 0.5) {
             hyrule.hanger.dropRobot();
         } else hyrule.hanger.stopWinch();
+
         if (gamepad2.left_bumper) {
             hyrule.ploop.lower();
         } else if (gamepad2.left_trigger > 0.5) {
             hyrule.ploop.raise();
         } else hyrule.ploop.stop();
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }

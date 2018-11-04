@@ -22,13 +22,11 @@ public class Robot {
 
     HardwareMap hardwareMap;
 
-    List<Mechanism> mechanisms;
+    ArrayList<Mechanism> mechanisms;
 
-    public void Robot(HardwareMap h){
+    public Robot(HardwareMap h){
         hardwareMap = h;
-    }
 
-    public void init(){
         driveTrain = new DriveTrain("driveTrain", hardwareMap);
         blockDumper = new MineralDumper("blockDumper", hardwareMap);
         ballDumper = new MineralDumper("ballDumper", hardwareMap);
@@ -38,8 +36,7 @@ public class Robot {
         markerDumper = new MarkerDumper("markerDumper", hardwareMap);
         sorter = new Sorter("sorter", hardwareMap);
 
-        mechanisms = new ArrayList<Mechanism>();
-
+        mechanisms = new ArrayList<>();
         mechanisms.add(driveTrain);
         mechanisms.add(blockDumper);
         mechanisms.add(ballDumper);
@@ -48,21 +45,26 @@ public class Robot {
         mechanisms.add(intake);
         mechanisms.add(markerDumper);
         mechanisms.add(sorter);
+    }
 
-        for(Mechanism m: mechanisms){
-            m.init();
+    public void init(){
+        for (int i=0; i<mechanisms.size(); i++ ){
+     //   for(Mechanism m: mechanisms){
+            mechanisms.get(i).init();
         }
     }
 
     public void start(){
-        for(Mechanism m: mechanisms){
-            m.start();
+        for (int i=0; i<mechanisms.size(); i++ ){
+            //   for(Mechanism m: mechanisms){
+            mechanisms.get(i).start();
         }
     }
 
     public void stop(){
-        for(Mechanism m: mechanisms){
-            m.stop();
+        for (int i=0; i<mechanisms.size(); i++ ){
+            //   for(Mechanism m: mechanisms){
+            mechanisms.get(i).stop();
         }
     }
 

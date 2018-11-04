@@ -65,7 +65,7 @@ public class CornerAuton extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot = new Robot();
+        robot = new Robot(hardwareMap);
         robot.init();
 
         // Wait for the game to start (driver presses PLAY)
