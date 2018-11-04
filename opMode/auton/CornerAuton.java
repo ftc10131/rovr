@@ -72,7 +72,7 @@ public class CornerAuton extends LinearOpMode {
         waitForStart();
         runtime.reset();
         robot.start();
-
+/*
         //Land and move out slightly
         robot.hanger.lowerRobot(inches,this);
         robot.driveTrain.holoDistance(inches,0,this);
@@ -102,7 +102,7 @@ public class CornerAuton extends LinearOpMode {
             sleep(milliseconds);
             intake.stop();
         }
-
+*/
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
