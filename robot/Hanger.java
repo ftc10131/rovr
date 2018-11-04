@@ -11,30 +11,42 @@ public class Hanger extends Mechanism {
     DcMotor winch;
     Servo lock;
 
-    public Hanger(String n,HardwareMap hardwareMap){
+    public Hanger(String n, HardwareMap hardwareMap) {
         super(n, hardwareMap);
         winch = hardwareMap.get(DcMotor.class, "winch");
         lock = hardwareMap.get(Servo.class, "lock");
     }
 
-    public void init(){
-        hm.put(name + ",LockVal",new Param(0.3));
+    public void init() {
+        hm.put(name + ",LockVal", new Param(0.3));
         hm.put(name + ",UnlockVal", new Param(0.7));
     }
 
-    public void start(){
+    public void liftRobot() {
+        winch.setPower(1);
+    }
+
+    public void dropRobot() {
+        winch.setPower(-1);
+    }
+
+    public void stopWinch() {
+        winch.setPower(0);
+    }
+
+    public void start() {
 
     }
 
-    public void stop(){
+    public void stop() {
 
     }
 
-    public void lock(){
+    public void lock() {
         lock.setPosition(hm.get(name + ",LockVal").getValue());
     }
 
-    public void unlock(){
+    public void unlock() {
         lock.setPosition(hm.get(name + ",UnlockVal").getValue());
     }
 }
