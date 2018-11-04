@@ -17,6 +17,7 @@ public class Robot {
     public Ploop ploop;
     public Intake intake;
     public MarkerDumper markerDumper;
+    public Sorter sorter;
 
     HardwareMap hardwareMap;
 
@@ -34,6 +35,7 @@ public class Robot {
         ploop = new Ploop("ploop", hardwareMap);
         intake = new Intake("intake", hardwareMap);
         markerDumper = new MarkerDumper("markerDumper", hardwareMap);
+        sorter = new Sorter("sorter", hardwareMap);
 
         mechanisms.add(driveTrain);
         mechanisms.add(blockDumper);
@@ -42,6 +44,7 @@ public class Robot {
         mechanisms.add(ploop);
         mechanisms.add(intake);
         mechanisms.add(markerDumper);
+        mechanisms.add(sorter);
 
         for(Mechanism m: mechanisms){
             m.init();
