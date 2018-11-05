@@ -17,10 +17,10 @@ public class DriveTrain extends Mechanism {
     public DriveTrain(String n, HardwareMap hardwareMap){
         //name = n;
         super(n, hardwareMap);
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontLeft = getHwMotor("frontLeft");
+        frontRight = getHwMotor("frontRight");
+        backLeft = getHwMotor("backLeft");
+        backRight = getHwMotor("backRight");
     }
 
     public void init(){

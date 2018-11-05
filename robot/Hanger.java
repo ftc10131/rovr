@@ -13,13 +13,17 @@ public class Hanger extends Mechanism {
 
     public Hanger(String n, HardwareMap hardwareMap) {
         super(n, hardwareMap);
-        winch = hardwareMap.get(DcMotor.class, "winch");
-        lock = hardwareMap.get(Servo.class, "lock");
+        lock = getHwServo("lock");
+        winch = getHwMotor("winch");
     }
+    //////////////////////////////////////////////////
+    //Hanger difference between up and down is 4238 encoder values
+    //Winch in is negative value
+    //////////////////////////////////////////////////
 
     public void init() {
-        hm.put(name + ",LockVal", new Param(0.3));
-        hm.put(name + ",UnlockVal", new Param(0.7));
+        hmp.put(mName("LockVal"), new Param(0.5));
+        hmp.put(mName("UnlockVal"), new Param(0.2));
     }
 
     public void liftRobot() {
@@ -43,10 +47,10 @@ public class Hanger extends Mechanism {
     }
 
     public void lock() {
-        lock.setPosition(hm.get(name + ",LockVal").getValue());
+        lock.setPosition(hmp.get(mName("LockVal")).getValue());
     }
 
     public void unlock() {
-        lock.setPosition(hm.get(name + ",UnlockVal").getValue());
+        lock.setPosition(hmp.get(mName("UnlockVal")).getValue());
     }
 }

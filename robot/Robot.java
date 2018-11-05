@@ -22,7 +22,7 @@ public class Robot {
 
     HardwareMap hardwareMap;
 
-    ArrayList<Mechanism> mechanisms;
+    public ArrayList<Mechanism> mechanisms;
 
     public Robot(HardwareMap h){
         hardwareMap = h;
@@ -70,9 +70,9 @@ public class Robot {
 
     public void paramTelemetry(LinearOpMode om){
         for(Mechanism m: mechanisms){
-            if(!m.hm.isEmpty()){
-                for(String s: m.hm.keySet()){
-                    om.telemetry.addData(s,m.hm.get(s).getValue());
+            if(!m.hmp.isEmpty()){
+                for(String s: m.hmp.keySet()){
+                    om.telemetry.addData(s,m.hmp.get(s).getValue());
                 }
             }
         }

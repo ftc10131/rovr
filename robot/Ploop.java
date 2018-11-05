@@ -11,7 +11,7 @@ public class Ploop extends Mechanism {
 
     public Ploop(String n, HardwareMap hardwareMap) {
         super(n, hardwareMap);
-        ploop = hardwareMap.get(DcMotor.class, "ploop");
+        ploop = getHwMotor("ploop");
     }
 
     public void init() {
