@@ -14,9 +14,9 @@ public class Sorter extends Mechanism{
     }
 
     public void init(){
-        hmp.put(mName("DumpBall"), new Param(0.4));
-        hmp.put(mName("DumpBlock"), new Param(0.6));
-        hmp.put(mName("DumpCenter"), new Param(0.5));
+        hmp.put(mName("DumpBall"), new Param(0.9));
+        hmp.put(mName("DumpBlock"), new Param(0.0));
+        hmp.put(mName("DumpCenter"), new Param(0.43));
         center();
     }
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import rovr.robot.sensors.Gyro;
 import rovr.util.Param;
 
 public class Robot {
@@ -19,6 +20,7 @@ public class Robot {
     public Intake intake;
     public MarkerDumper markerDumper;
     public Sorter sorter;
+    public Gyro gyro;
 
     HardwareMap hardwareMap;
 
@@ -35,6 +37,7 @@ public class Robot {
         intake = new Intake("intake", hardwareMap);
         markerDumper = new MarkerDumper("markerDumper", hardwareMap);
         sorter = new Sorter("sorter", hardwareMap);
+        gyro = new Gyro("imu",hardwareMap);
 
         mechanisms = new ArrayList<>();
         mechanisms.add(driveTrain);
@@ -45,6 +48,7 @@ public class Robot {
         mechanisms.add(intake);
         mechanisms.add(markerDumper);
         mechanisms.add(sorter);
+        mechanisms.add(gyro);
     }
 
     public void init(){

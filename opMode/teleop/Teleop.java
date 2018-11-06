@@ -93,15 +93,31 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
-        hyrule.driveTrain.holoDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+        hyrule.driveTrain.holoGyro(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x,(int)hyrule.gyro.getHeading());
 
         if (gamepad1.dpad_up) {
             hyrule.hanger.lock();
         }
-
         if (gamepad1.dpad_down) {
             hyrule.hanger.unlock();
         }
+
+        if(gamepad1.right_trigger > 0.5){
+            hyrule.intake.in();
+        }else if(gamepad1.right_bumper){
+            hyrule.intake.out();
+        }else{
+            hyrule.intake.stopPower();
+        }
+
+        if(gamepad1.x){
+            hyrule.sorter.dumpBlock();
+        }else if(gamepad1.b){
+            hyrule.sorter.dumpBall();
+        }else{
+            hyrule.sorter.center();
+        }
+
 
         if (gamepad2.left_stick_y < -0.5) {
             hyrule.hanger.liftRobot();
@@ -109,13 +125,23 @@ public class Teleop extends OpMode {
             hyrule.hanger.dropRobot();
         } else hyrule.hanger.stopWinch();
 
-        if (gamepad2.left_bumper) {
-            hyrule.ploop.lower();
-        } else if (gamepad2.left_trigger > 0.5) {
-            hyrule.ploop.raise();
-        } else hyrule.ploop.stop();
+        if(gamepad2.right_stick_y < -0.5){
+            hyrule.hanger.lock();
+        }
+        if(gamepad2.right_stick_y > 0.5){
+            hyrule.hanger.unlock();
+        }
+
+        if (gamepad2.dpad_down) {
+            hyrule.ploop.fullDown();
+        } else if (gamepad2.dpad_up) {
+            hyrule.ploop.fullIn();
+        } else if(gamepad2.dpad_left){
+            hyrule.ploop.goToDump();
+        }
 
         // Show the elapsed game time and wheel power.
+        telemetry.addData("Heading: ", hyrule.gyro.getHeading());
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 

@@ -53,4 +53,12 @@ public class Hanger extends Mechanism {
     public void unlock() {
         lock.setPosition(hmp.get(mName("UnlockVal")).getValue());
     }
+
+    public void hangerUp(){
+
+    }
+
+    public void hangerDown(){
+
+    }
 }
