@@ -40,7 +40,7 @@ public class Mechanism {
     }
 
     public String mName(String s){
-        return name + "," + s;
+        return name + s;
     }
 
     public Servo getHwServo(String n){

@@ -17,6 +17,9 @@ public class Sorter extends Mechanism{
         hmp.put(mName("DumpBall"), new Param(0.9));
         hmp.put(mName("DumpBlock"), new Param(0.0));
         hmp.put(mName("DumpCenter"), new Param(0.43));
+        hmp.get(mName("DumpBall")).setStandardServo();
+        hmp.get(mName("DumpBlock")).setStandardServo();
+        hmp.get(mName("DumpCenter")).setStandardServo();
         center();
     }
 

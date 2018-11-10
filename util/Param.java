@@ -7,7 +7,7 @@ public class Param {
     double max;
     boolean hasMin;
     double min;
-    double updateSpeed;
+    double updateStep;
 
     public Param (double v){
         value = v;
@@ -15,7 +15,7 @@ public class Param {
         max = 1;
         hasMin = false;
         min = -1;
-        updateSpeed = 1;
+        updateStep = 1;
     }
 
     public void setValue(double input){
@@ -29,6 +29,36 @@ public class Param {
     }
     public double getValue(){
         return value;
+    }
+
+    public void setStandardServo(){
+        setMin(0);
+        setMax(1);
+        updateStep = 0.05;
+    }
+
+    public void setStandardEnc(){
+        hasMin = false;
+        hasMax = false;
+        updateStep = 200;
+    }
+
+    public void setMin(double newMin){
+        hasMin = true;
+        min = newMin;
+    }
+
+    public void setMax(double newMax){
+        hasMax = true;
+        max = newMax;
+    }
+
+    public void increaseByStep(){
+        setValue(value + updateStep);
+    }
+
+    public void decreaseByStep(){
+        setValue(value - updateStep);
     }
 
 }

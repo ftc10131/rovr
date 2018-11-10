@@ -24,6 +24,8 @@ public class Hanger extends Mechanism {
     public void init() {
         hmp.put(mName("LockVal"), new Param(0.5));
         hmp.put(mName("UnlockVal"), new Param(0.2));
+        hmp.get(mName("LockVal")).setStandardServo();
+        hmp.get(mName("UnlockVal")).setStandardServo();
     }
 
     public void liftRobot() {
