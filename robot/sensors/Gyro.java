@@ -23,6 +23,7 @@ public class Gyro extends Mechanism{
 
     Orientation angles;
     Acceleration gravity;
+    float headingOffset = 0;
 
     public Gyro (String n, HardwareMap hardwareMap) {
         super(n, hardwareMap);
@@ -51,11 +52,15 @@ public class Gyro extends Mechanism{
 
     }
 
+    public void resetHeading(){
+        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+    }
+
     public float getHeading (){
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = imu.getGravity();
 
-        return AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+        return AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle)) - headingOffset;
     }
 
     String formatAngle(AngleUnit angleUnit, double angle) {

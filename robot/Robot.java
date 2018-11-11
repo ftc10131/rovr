@@ -36,8 +36,8 @@ public class Robot extends Mechanism{
         hardwareMap = h;
 
         driveTrain = new DriveTrain("driveTrain", hardwareMap);
-        blockDumper = new MineralDumper("blockDumper", hardwareMap);
-        ballDumper = new MineralDumper("ballDumper", hardwareMap);
+        blockDumper = new MineralDumper("blockDumper", hardwareMap,false);
+        ballDumper = new MineralDumper("ballDumper", hardwareMap,true);
         hanger = new Hanger("hanger", hardwareMap);
         ploop = new Ploop("ploop", hardwareMap);
         intake = new Intake("intake", hardwareMap);

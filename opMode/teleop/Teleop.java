@@ -58,6 +58,8 @@ public class Teleop extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     Robot hyrule ;
+    double driveSpeed;
+    boolean rightStickPressed;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -69,6 +71,8 @@ public class Teleop extends OpMode {
         hyrule =new Robot(hardwareMap);
         hyrule.init();
         telemetry.addData("Status", "Initialized");
+        driveSpeed = 1;
+        rightStickPressed = false;
     }
 
     /*
@@ -93,7 +97,15 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
-        hyrule.driveTrain.holoGyro(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x,(int)hyrule.gyro.getHeading());
+        hyrule.driveTrain.holoGyro(gamepad1.left_stick_x * driveSpeed, -gamepad1.left_stick_y * driveSpeed, gamepad1.right_stick_x * driveSpeed,(int)hyrule.gyro.getHeading());
+
+        if(gamepad1.left_stick_button && !rightStickPressed){
+            if(driveSpeed > 0.9)
+                driveSpeed = 0.5;
+            if(driveSpeed < 0.6)
+                driveSpeed = 1.0;
+        }
+        rightStickPressed = gamepad1.right_stick_button;
 
         if (gamepad1.dpad_up) {
             hyrule.hanger.lock();
@@ -118,6 +130,10 @@ public class Teleop extends OpMode {
             hyrule.sorter.center();
         }
 
+        if(gamepad1.right_stick_button){
+            hyrule.gyro.resetHeading();
+        }
+
 
         if (gamepad2.left_stick_y < -0.5) {
             hyrule.hanger.liftRobot();
@@ -140,6 +156,13 @@ public class Teleop extends OpMode {
             hyrule.ploop.goToDump();
         }
 
+        if(gamepad2.y) {
+            hyrule.ballDumper.dump();
+            hyrule.blockDumper.dump();
+        }else{
+            hyrule.ballDumper.collect();
+            hyrule.blockDumper.collect();
+        }
         // Show the elapsed game time and wheel power.
         telemetry.addData("Heading: ", hyrule.gyro.getHeading());
         telemetry.addData("Status", "Run Time: " + runtime.toString());
