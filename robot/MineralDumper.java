@@ -13,9 +13,6 @@ public class MineralDumper extends Mechanism {
         super(n, hardwareMap);
         dumper = getHwServo(n);
         isBall = isThisBall;
-    }
-
-    public void init(){
         if(isBall)
             hmp.put(mName("Dump"), new Param(0.8));
         else
@@ -27,6 +24,10 @@ public class MineralDumper extends Mechanism {
         hmp.get(mName("Dump")).setStandardServo();
         hmp.get(mName("Collect")).setStandardServo();
 
+    }
+
+    public void init(){
+        collect();
     }
 
     public void start(){

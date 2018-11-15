@@ -29,12 +29,9 @@
 
 package rovr.opMode.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import rovr.robot.Robot;
 
@@ -52,9 +49,9 @@ import rovr.robot.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name = "TeleOp")
-@Disabled
-public class Teleop extends OpMode {
+@TeleOp(name = "TeleOp: Ploop Up")
+//@Disabled
+public class TeleopPloopUp extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     Robot hyrule ;
@@ -154,7 +151,19 @@ public class Teleop extends OpMode {
             hyrule.ploop.fullIn();
         } else if(gamepad2.dpad_left){
             hyrule.ploop.goToDump();
+        }else if(gamepad2.left_bumper){
+            hyrule.ploop.raise();
+        }else if(gamepad2.left_trigger > 0.5){
+            hyrule.ploop.lower();
+        }else{
+            hyrule.ploop.stop();
         }
+        //Not sure if this is official button
+        if(gamepad2.dpad_right){
+            hyrule.ploop.startingDown();
+        }
+
+
 
         if(gamepad2.y) {
             hyrule.ballDumper.dump();
@@ -163,6 +172,9 @@ public class Teleop extends OpMode {
             hyrule.ballDumper.collect();
             hyrule.blockDumper.collect();
         }
+
+        //THIS IS THE LAST LINE DON"T PUT ANYTHING FUNCTIONAL AFTER IT
+        hyrule.stopIfStalled();
         // Show the elapsed game time and wheel power.
         telemetry.addData("Heading: ", hyrule.gyro.getHeading());
         telemetry.addData("Status", "Run Time: " + runtime.toString());

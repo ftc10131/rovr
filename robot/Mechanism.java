@@ -54,4 +54,8 @@ public class Mechanism {
         hmm.put(mName(n),s);
         return s;
     }
+
+    public double getPVal(String s){
+        return hmp.get(mName(s)).getValue();
+    }
 }

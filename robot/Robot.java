@@ -61,6 +61,8 @@ public class Robot extends Mechanism{
     }
 
     public void init(){
+        paramManager.loadFromFile(hardwareMap.appContext, paramFileName,hmp);
+
         for (int i=0; i<mechanisms.size(); i++ ){
      //   for(Mechanism m: mechanisms){
             mechanisms.get(i).init();
@@ -71,7 +73,7 @@ public class Robot extends Mechanism{
 
         }
 
-        paramManager.loadFromFile(hardwareMap.appContext, paramFileName,hmp);
+
 
     }
 
@@ -97,5 +99,9 @@ public class Robot extends Mechanism{
                 }
             }
         }
+    }
+
+    public void stopIfStalled(){
+        ploop.stopIfStalled();
     }
 }
