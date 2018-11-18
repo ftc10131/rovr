@@ -65,7 +65,7 @@ public class TeleopPloopUp extends OpMode {
     public void init() {
         //hyrule = new Robot(hardwareMap);
         // Tell the driver that initialization is complete.
-        hyrule =new Robot(hardwareMap);
+        hyrule = new Robot(hardwareMap);
         hyrule.init();
         telemetry.addData("Status", "Initialized");
         driveSpeed = 1;
@@ -133,9 +133,9 @@ public class TeleopPloopUp extends OpMode {
 
 
         if (gamepad2.left_stick_y < -0.5) {
-            hyrule.hanger.liftRobot();
-        } else if (gamepad2.left_stick_y > 0.5) {
             hyrule.hanger.dropRobot();
+        } else if (gamepad2.left_stick_y > 0.5) {
+            hyrule.hanger.liftRobot();
         } else hyrule.hanger.stopWinch();
 
         if(gamepad2.right_stick_y < -0.5){
@@ -159,7 +159,7 @@ public class TeleopPloopUp extends OpMode {
             hyrule.ploop.stop();
         }
         //Not sure if this is official button
-        if(gamepad2.dpad_right){
+        if(gamepad2.dpad_right && gamepad2.a){
             hyrule.ploop.startingDown();
         }
 

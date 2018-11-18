@@ -1,5 +1,6 @@
 package rovr.robot;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -26,9 +27,12 @@ public class Ploop extends Mechanism {
         hmp.put(mName("Speed"), new Param(1));
         hmp.get(mName("Speed")).setStandardServo();
         hmp.put(mName("FullInVal"), new Param(0));
-        hmp.put(mName("DumpVal"), new Param(550));
+        hmp.put(mName("DumpVal"), new Param(1000));
         hmp.put(mName("FullDownVal"), new Param(2250));
         isPowered = false;
+        hmp.get(mName("FullInVal")).setStandardEnc();
+        hmp.get(mName("DumpVal")).setStandardEnc();
+        hmp.get(mName("FullDownVal")).setStandardEnc();
     }
 
     public void init() {
@@ -41,15 +45,15 @@ public class Ploop extends Mechanism {
 
     public void lower() {
         isPowered = true;
-        ploop.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ploop.setPower(getPVal("Speed"));
+        ploop.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ploop.setPower(getPVal("Speed")/4);
         //encMode = false;
     }
 
     public void raise() {
         isPowered = true;
-        ploop.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ploop.setPower(-getPVal("Speed"));
+        ploop.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ploop.setPower(-getPVal("Speed")/2);
         //encMode = false;
     }
 
@@ -111,6 +115,21 @@ public class Ploop extends Mechanism {
         }
         lastMotorPos = ploop.getCurrentPosition();
         return false;
+    }
+
+    public void autonFullDown(LinearOpMode om){
+        int startPos = ploop.getCurrentPosition();
+        lower();
+        double startTime = om.getRuntime();
+        while(ploop.getCurrentPosition()-startPos < getPVal("FullDownVal") && om.opModeIsActive() && om.getRuntime()-startTime < 5){
+            om.telemetry.addData("Ploop: ", "plooping " + (ploop.getCurrentPosition()-startPos));
+            om.telemetry.update();
+            //stopIfStalled();
+        }
+        stop();
+        if(ploop.getCurrentPosition()-startPos < getPVal("FullDownVal")){
+            om.stop();
+        }
     }
 
     public void stopAndReset(){
