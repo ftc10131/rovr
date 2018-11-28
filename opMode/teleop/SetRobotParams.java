@@ -65,7 +65,7 @@ public class SetRobotParams extends LinearOpMode {
         telemetry.update();
 
         hyrule = new Robot(hardwareMap);
-        hyrule.init();
+        hyrule.init(false);
 
         while(!opModeIsActive() && !isStopRequested()){
             hyrule.paramManager.respondToGamePadAndTelemetry(gamepad1, hyrule.hmp,this);

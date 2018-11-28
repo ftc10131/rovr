@@ -56,7 +56,7 @@ public class TeleopPloopUp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     Robot hyrule ;
     double driveSpeed;
-    boolean rightStickPressed;
+    boolean leftStickPressed;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -66,10 +66,10 @@ public class TeleopPloopUp extends OpMode {
         //hyrule = new Robot(hardwareMap);
         // Tell the driver that initialization is complete.
         hyrule = new Robot(hardwareMap);
-        hyrule.init();
+        hyrule.init(false);
         telemetry.addData("Status", "Initialized");
         driveSpeed = 1;
-        rightStickPressed = false;
+        leftStickPressed = false;
     }
 
     /*
@@ -96,13 +96,13 @@ public class TeleopPloopUp extends OpMode {
 
         hyrule.driveTrain.holoGyro(gamepad1.left_stick_x * driveSpeed, -gamepad1.left_stick_y * driveSpeed, gamepad1.right_stick_x * driveSpeed,(int)hyrule.gyro.getHeading());
 
-        if(gamepad1.left_stick_button && !rightStickPressed){
+        if(gamepad1.left_stick_button && !leftStickPressed){
             if(driveSpeed > 0.9)
                 driveSpeed = 0.5;
-            if(driveSpeed < 0.6)
+            else if(driveSpeed < 0.6)
                 driveSpeed = 1.0;
         }
-        rightStickPressed = gamepad1.right_stick_button;
+        leftStickPressed = gamepad1.left_stick_button;
 
         if (gamepad1.dpad_up) {
             hyrule.hanger.lock();

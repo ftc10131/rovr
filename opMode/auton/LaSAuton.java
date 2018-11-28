@@ -49,8 +49,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 //@Disabled
 public class LaSAuton extends SampleAuton {
 
-    public int goldLocation;
-
     public LaSAuton(){
         super();
         //hmp.put("",1);
@@ -70,23 +68,6 @@ public class LaSAuton extends SampleAuton {
         sleep(400);
         hyrule.driveTrain.holoDrive(0,-0.5,0);
         sleep(333);
-        hyrule.driveTrain.stop();
-        hyrule.ploop.autonFullDown(this);
-        hyrule.sorter.dumpBlock();
-        sleep(250);
-        //Insert vision check for gold mineral here
-        goldLocation = 1;
-        switch (goldLocation){
-            case 1:
-                hyrule.intake.in();
-                hyrule.driveTrain.holoDrive(0,0.5,0);
-                sleep(1000);
-                hyrule.driveTrain.stop();
-                hyrule.intake.stopPower();
-                break;
-            default:
-        }
-
         hyrule.driveTrain.stop();
 
         super.runMe();

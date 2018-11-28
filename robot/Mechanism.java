@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Mechanism {
 
     public String name = null;
-    HardwareMap  hardwareMap;
+    public HardwareMap  hardwareMap;
     public HashMap<String,Param> hmp;
     public HashMap<String,Servo> hms;
     public HashMap<String,DcMotor> hmm;

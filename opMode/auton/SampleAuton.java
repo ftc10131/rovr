@@ -37,6 +37,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+
+import java.util.List;
+
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -55,6 +59,8 @@ import com.qualcomm.robotcore.util.Range;
 //@Disabled
 public class SampleAuton extends BasicAuton {
 
+    public int goldLocation;
+
     public SampleAuton(){
         super();
         //hmp.put("",1);
@@ -63,7 +69,63 @@ public class SampleAuton extends BasicAuton {
 
     @Override
     public void runMe(){
+        hyrule.ploop.autonFullDown(this);
+        //hyrule.sorter.dumpBlock();
+        sleep(250);
 
+        double degrees = 1.05 * hyrule.vision.degreesToGold(this);
+
+        hyrule.driveTrain.holoDrive(0,0.33,0);
+        sleep(500);
+        hyrule.driveTrain.stop();
+        sleep(500);
+
+
+        //telemetry.addData("Degrees: " , degrees);
+        //telemetry.update();
+
+
+        hyrule.driveTrain.turnDegrees(degrees,hyrule.gyro,this);
+        hyrule.intake.in();
+        hyrule.driveTrain.holoDrive(0,0.5,0);
+        if(degrees!=0)
+            sleep(1000);
+        sleep(1000);
+        hyrule.driveTrain.stop();
+        sleep(1000);
+        hyrule.intake.stopPower();
+
+
+            //Insert vision check for gold mineral here
+        /*while(opModeIsActive()){
+            List<Recognition> recog = hyrule.vision.getGold();
+            if(recog != null){
+                for (Recognition r : recog) {
+                    telemetry.addData("GoldLeft" , r.getLeft());
+                    telemetry.addData("GoldRight", r.getRight());
+                    telemetry.addData("GoldTop", r.getTop());
+                    telemetry.addData("GoldBottom", r.getBottom());
+
+                }
+            }else{
+                telemetry.addData("Gold: ", "No recogognitions");
+            }
+            telemetry.update();
+            sleep(20);
+        }
+        goldLocation = 1;
+        switch (goldLocation){
+            case 1:
+                hyrule.intake.in();
+                hyrule.driveTrain.holoDrive(0,0.5,0);
+                sleep(1000);
+                hyrule.driveTrain.stop();
+                hyrule.intake.stopPower();
+                break;
+            default:
+        }*/
+
+        hyrule.driveTrain.stop();
     }
 
 }

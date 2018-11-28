@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import rovr.robot.sensors.Gyro;
+import rovr.robot.sensors.Vision;
 import rovr.util.Param;
 import rovr.util.ParamManager;
 
@@ -23,6 +24,7 @@ public class Robot extends Mechanism{
     public Sorter sorter;
     public Gyro gyro;
     public ParamManager paramManager;
+    public Vision vision;
 
     public String paramFileName;
 
@@ -44,6 +46,7 @@ public class Robot extends Mechanism{
         markerDumper = new MarkerDumper("markerDumper", hardwareMap);
         sorter = new Sorter("sorter", hardwareMap);
         gyro = new Gyro("imu",hardwareMap);
+        vision = new Vision("vision",hardwareMap);
         paramManager = new ParamManager();
 
         mechanisms = new ArrayList<>();
@@ -56,11 +59,14 @@ public class Robot extends Mechanism{
         mechanisms.add(markerDumper);
         mechanisms.add(sorter);
         mechanisms.add(gyro);
+        mechanisms.add(vision);
 
         paramFileName = mName("Params");
     }
 
-    public void init(){
+    public void init(boolean usingVision){
+        vision.using = usingVision;
+
         paramManager.loadFromFile(hardwareMap.appContext, paramFileName,hmp);
 
         for (int i=0; i<mechanisms.size(); i++ ){

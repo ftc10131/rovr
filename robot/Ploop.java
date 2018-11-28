@@ -46,7 +46,7 @@ public class Ploop extends Mechanism {
     public void lower() {
         isPowered = true;
         ploop.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        ploop.setPower(getPVal("Speed")/4);
+        ploop.setPower(getPVal("Speed")/2);
         //encMode = false;
     }
 
@@ -93,7 +93,7 @@ public class Ploop extends Mechanism {
     }
 
     public void startingDown(){
-        upPosEnc = ploop.getCurrentPosition()- (int)getPVal("FullDownVal");
+        upPosEnc = ploop.getCurrentPosition()- (int)getPVal("FullDownVal")-150;
     }
 
     public void stopIfStalled(){
@@ -126,6 +126,8 @@ public class Ploop extends Mechanism {
             om.telemetry.update();
             //stopIfStalled();
         }
+        om.telemetry.addData("Ploop: ", "stopped");
+        om.telemetry.update();
         stop();
         if(ploop.getCurrentPosition()-startPos < getPVal("FullDownVal")){
             om.stop();

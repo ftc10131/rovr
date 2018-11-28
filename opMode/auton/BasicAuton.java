@@ -86,7 +86,7 @@ public class BasicAuton extends LinearOpMode {
         editing = false;
         telemetry.addData("Status", "Initializing");
         telemetry.update();
-        hyrule.init();
+        hyrule.init(true);
         paramManager.loadFromFile(hardwareMap.appContext, paramFileName,hmp);
 
         // Wait for the game to start (driver presses PLAY)
@@ -103,12 +103,13 @@ public class BasicAuton extends LinearOpMode {
             telemetry.update();
         }
         runtime.reset();
-
+        hyrule.start();
         // run until the end of the match (driver presses STOP)
         if(editing){
             paramManager.saveToFile(hardwareMap.appContext,hyrule.paramFileName,hyrule.hmp);
         }else{
             runMe();
         }
+        hyrule.stop();
     }
 }

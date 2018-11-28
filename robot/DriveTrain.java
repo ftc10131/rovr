@@ -1,8 +1,11 @@
 package rovr.robot;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import rovr.robot.sensors.Gyro;
 
 public class DriveTrain extends Mechanism {
 
@@ -56,6 +59,49 @@ public class DriveTrain extends Mechanism {
         double headingX = x * Math.cos(((double)heading)/180.0*Math.PI)+ y * Math.sin(((double)heading)/180.0*Math.PI);
         double headingY = y * Math.cos(((double)heading)/180.0*Math.PI)- x * Math.sin(((double)heading)/180.0*Math.PI);
         holoDrive(headingX,headingY,turny);
+    }
+
+    public void turnDegrees(double degrees, Gyro gyro, LinearOpMode om){
+        double startTime = om.getRuntime();
+        double startingDegrees = -gyro.getHeading();
+        double currentDegrees = startingDegrees;
+        double turnedDegrees = currentDegrees - startingDegrees;
+        if(turnedDegrees > 180)
+            turnedDegrees -= 360;
+        if(turnedDegrees < -180)
+            turnedDegrees += 360;
+        if(degrees > 1){
+            holoDrive(0,0, 0.3);
+            while(om.opModeIsActive() && om.getRuntime() - startTime < 3 && turnedDegrees < degrees){
+                turnedDegrees = -gyro.getHeading() - startingDegrees;
+                if(turnedDegrees > 180)
+                    turnedDegrees -= 360;
+                if(turnedDegrees < -180)
+                    turnedDegrees += 360;
+                om.telemetry.addData("Starting Degrees: ", startingDegrees);
+                om.telemetry.addData("Current Degrees: ", currentDegrees);
+                om.telemetry.addData("Turned Degrees: ", turnedDegrees);
+                om.telemetry.addData("Gyro Heading: ", gyro.getHeading());
+                om.telemetry.update();
+            }
+        }else if(degrees < -1){
+            holoDrive(0,0, -0.3);
+            while(om.opModeIsActive() && om.getRuntime() - startTime < 3 && turnedDegrees > degrees){
+                turnedDegrees = -gyro.getHeading() - startingDegrees;
+                if(turnedDegrees > 180)
+                    turnedDegrees -= 360;
+                if(turnedDegrees < -180)
+                    turnedDegrees += 360;
+                om.telemetry.addData("Starting Degrees: ", startingDegrees);
+                om.telemetry.addData("Current Degrees: ", currentDegrees);
+                om.telemetry.addData("Turned Degrees: ", turnedDegrees);
+                om.telemetry.addData("Gyro Heading: ", gyro.getHeading());
+                om.telemetry.update();
+            }
+        }else{
+
+        }
+        stop();
     }
 
     public void start(){

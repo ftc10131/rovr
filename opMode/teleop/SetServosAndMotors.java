@@ -67,7 +67,7 @@ public class SetServosAndMotors extends LinearOpMode {
         telemetry.update();
 
         hyrule = new Robot(hardwareMap);
-        hyrule.init();
+        hyrule.init(false);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
