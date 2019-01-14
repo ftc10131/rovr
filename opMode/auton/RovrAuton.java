@@ -1,6 +1,7 @@
 package rovr.opMode.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -53,8 +54,8 @@ import rovr.util.ParamManager;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Basic", group = "Autonomous")
-//@Disabled
+@Autonomous(name = "Rovr", group = "Autonomous")
+@Disabled
 public class RovrAuton extends BasicAuton {
 
     // Declare OpMode members.

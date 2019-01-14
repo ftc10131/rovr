@@ -2,7 +2,7 @@ package rovr.opMode.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="LandSampleCapture", group="Autonomous")
+@Autonomous(name="LSCPDepot", group="Depot")
 public class LSCPDepot extends RovrAuton{
 
     public LSCPDepot(){

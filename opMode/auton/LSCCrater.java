@@ -2,7 +2,7 @@ package rovr.opMode.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "LandSampleCapture", group = "Autonomous")
+@Autonomous(name = "LSCCrater", group = "Crater")
 public class LSCCrater extends RovrAuton {
 
     public LSCCrater() {

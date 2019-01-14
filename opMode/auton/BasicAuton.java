@@ -58,7 +58,7 @@ import rovr.util.ParamManager;
  */
 
 @Autonomous(name="Basic", group="Autonomous")
-//@Disabled
+@Disabled
 public class BasicAuton extends LinearOpMode {
 
     // Declare OpMode members.
