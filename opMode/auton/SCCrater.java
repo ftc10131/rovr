@@ -14,7 +14,6 @@ public class SCCrater extends RovrAuton {
         sample();
         startingAtCrater = true;
         claimAfterSample();
-        hyrule.stop();
     }
 
 }

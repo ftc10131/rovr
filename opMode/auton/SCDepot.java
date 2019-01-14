@@ -14,7 +14,6 @@ public class SCDepot extends RovrAuton{
        sample();
        startingAtCrater=false;
        claimAfterSample();
-       hyrule.stop();
     }
 
 }

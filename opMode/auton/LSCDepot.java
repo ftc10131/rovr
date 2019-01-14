@@ -15,7 +15,6 @@ public class LSCDepot extends RovrAuton{
        sample();
        startingAtCrater=false;
        claimAfterSample();
-       hyrule.stop();
     }
 
 }

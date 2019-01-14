@@ -16,7 +16,6 @@ public class LSCPCrater extends RovrAuton {
         startingAtCrater = true;
         claimAfterSample();
         parkAfterClaim();
-        hyrule.stop();
     }
 
 }
