@@ -138,15 +138,15 @@ public class Ploop extends Mechanism {
         int startPos = ploop.getCurrentPosition();
         raise();
         double startTime = om.getRuntime();
-        while(Math.abs(ploop.getCurrentPosition()-startPos) > getPVal("FullDownVal") && om.opModeIsActive() && om.getRuntime()-startTime < 5){
-            om.telemetry.addData("Ploop: ", "plooping " + (Math.abs(ploop.getCurrentPosition()-startPos)));
+        while((ploop.getCurrentPosition()-startPos) > -getPVal("FullDownVal") && om.opModeIsActive() && om.getRuntime()-startTime < 5){
+            om.telemetry.addData("Ploop: ", "plooping " + ((ploop.getCurrentPosition()-startPos)));
             om.telemetry.update();
             //stopIfStalled();
         }
         om.telemetry.addData("Ploop: ", "stopped");
         om.telemetry.update();
         stop();
-        if(Math.abs(ploop.getCurrentPosition()-startPos) < getPVal("FullDownVal")){
+        if((ploop.getCurrentPosition()-startPos) > -getPVal("FullDownVal")){
             om.stop();
         }
     }

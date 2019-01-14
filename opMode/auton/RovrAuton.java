@@ -122,9 +122,10 @@ public class RovrAuton extends BasicAuton {
         hyrule.driveTrain.stop();
         //turn back
         hyrule.driveTrain.turnDegrees(-degrees, hyrule.gyro, this);
-        //move??
+        //move
+        hyrule.driveTrain.moveEnc(0.5, 0.5);
         //strafe left (1.4 tiles?)
-        hyrule.driveTrain.strafeEnc(0.5, 1.4);
+        hyrule.driveTrain.strafeEnc(-0.5, 1.4);
         //turn back towards depot
         if (startingAtCrater == true) {
             hyrule.driveTrain.turnDegrees(-45, hyrule.gyro, this);
