@@ -1,22 +1,19 @@
 package rovr.opMode.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Autonomous(name="LSCPDepot", group="Depot")
-public class LSCPDepot extends RovrAuton{
+@Autonomous(name="SCDepot", group="Depot")
+public class SCDepot extends RovrAuton{
 
-    public LSCPDepot(){
+    public SCDepot(){
         super();
     }
 
     @Override
     public void runMe(){
-       land();
        sample();
        startingAtCrater=false;
        claimAfterSample();
-       parkAfterClaim();
     }
 
 }

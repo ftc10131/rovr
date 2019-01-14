@@ -54,7 +54,7 @@ import rovr.robot.Robot;
  */
 
 @Autonomous(name = "Corner", group = "Auton")
-//@Disabled
+@Disabled
 public class CornerAuton extends LinearOpMode {
 
     // Declare OpMode members.
