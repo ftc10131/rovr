@@ -123,9 +123,9 @@ public class RovrAuton extends BasicAuton {
         //turn back
         hyrule.driveTrain.turnDegrees(-degrees, hyrule.gyro, this);
         //move
-        hyrule.driveTrain.moveEnc(0.5, 0.5);
+        hyrule.driveTrain.moveEnc(0.5, 0.5 , this);
         //strafe left (1.4 tiles?)
-        hyrule.driveTrain.strafeEnc(-0.5, 1.4);
+        hyrule.driveTrain.strafeEnc(-0.5, 1.4 , this);
         //turn back towards depot
         if (startingAtCrater == true) {
             hyrule.driveTrain.turnDegrees(-45, hyrule.gyro, this);
@@ -135,15 +135,15 @@ public class RovrAuton extends BasicAuton {
         }
         //strafe to wall and away a bit
         if (startingAtCrater == true) {
-            hyrule.driveTrain.strafeEnc(-0.5, 0.5);
-            hyrule.driveTrain.strafeEnc(0.5, 0.1);
+            hyrule.driveTrain.strafeEnc(-0.5, 0.5 , this);
+            hyrule.driveTrain.strafeEnc(0.5, 0.1 , this);
         } else {
-            hyrule.driveTrain.strafeEnc(0.5, 0.5);
-            hyrule.driveTrain.strafeEnc(-0.5, 0.1);
+            hyrule.driveTrain.strafeEnc(0.5, 0.5 , this);
+            hyrule.driveTrain.strafeEnc(-0.5, 0.1 , this);
         }
 
         //back up 1.8 tiles
-        hyrule.driveTrain.moveEnc(-0.5, 1.8);
+        hyrule.driveTrain.moveEnc(-0.5, 1.8 , this);
         //ploop down
         hyrule.ploop.autonFullDown(this);
         //turn a little
@@ -174,6 +174,6 @@ public class RovrAuton extends BasicAuton {
 
     public void parkAfterClaim() {
         hyrule.ploop.autonFullUp(this);
-        hyrule.driveTrain.moveEnc(0.5, 3);
+        hyrule.driveTrain.moveEnc(0.5, 3 , this);
     }
 }
