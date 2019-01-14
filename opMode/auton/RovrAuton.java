@@ -153,8 +153,14 @@ public class RovrAuton extends BasicAuton {
         //dump marker
         if (startingAtCrater == true) {
             hyrule.blockDumper.dump();
+            sleep(1000);
+            hyrule.blockDumper.collect();
+            sleep(1000);
         } else {
             hyrule.ballDumper.dump();
+            sleep(1000);
+            hyrule.ballDumper.collect();
+            sleep(1000);
         }
         //turn back
         if (startingAtCrater == true) {
@@ -165,6 +171,7 @@ public class RovrAuton extends BasicAuton {
     }
 
     public void parkAfterClaim() {
-
+        hyrule.ploop.autonFullUp(this);
+        hyrule.driveTrain.moveEnc(0.5, 3);
     }
 }
