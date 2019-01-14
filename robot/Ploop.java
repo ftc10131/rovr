@@ -134,6 +134,23 @@ public class Ploop extends Mechanism {
         }
     }
 
+    public void autonFullUp(LinearOpMode om){
+        int startPos = ploop.getCurrentPosition();
+        raise();
+        double startTime = om.getRuntime();
+        while(Math.abs(ploop.getCurrentPosition()-startPos) > getPVal("FullDownVal") && om.opModeIsActive() && om.getRuntime()-startTime < 5){
+            om.telemetry.addData("Ploop: ", "plooping " + (Math.abs(ploop.getCurrentPosition()-startPos)));
+            om.telemetry.update();
+            //stopIfStalled();
+        }
+        om.telemetry.addData("Ploop: ", "stopped");
+        om.telemetry.update();
+        stop();
+        if(Math.abs(ploop.getCurrentPosition()-startPos) < getPVal("FullDownVal")){
+            om.stop();
+        }
+    }
+
     public void stopAndReset(){
         ploop.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
