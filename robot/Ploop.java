@@ -27,7 +27,7 @@ public class Ploop extends Mechanism {
         hmp.put(mName("Speed"), new Param(1));
         hmp.get(mName("Speed")).setStandardServo();
         hmp.put(mName("FullInVal"), new Param(0));
-        hmp.put(mName("DumpVal"), new Param(1000));
+        hmp.put(mName("DumpVal"), new Param(850));
         hmp.put(mName("FullDownVal"), new Param(2250));
         isPowered = false;
         hmp.get(mName("FullInVal")).setStandardEnc();

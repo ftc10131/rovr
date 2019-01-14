@@ -105,10 +105,13 @@ public class TeleopPloopUp extends OpMode {
         leftStickPressed = gamepad1.left_stick_button;
 
         if (gamepad1.dpad_up) {
-            hyrule.hanger.lock();
+            hyrule.gyro.resetHeading();
         }
-        if (gamepad1.dpad_down) {
-            hyrule.hanger.unlock();
+        if (gamepad1.dpad_left) {
+            hyrule.gyro.resetHeadingCrater();
+        }
+        if(gamepad1.dpad_right){
+            hyrule.gyro.resetHeadingDepot();
         }
 
         if(gamepad1.right_trigger > 0.5){

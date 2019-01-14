@@ -56,6 +56,15 @@ public class Gyro extends Mechanism{
         headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
     }
 
+    public void resetHeadingCrater(){
+        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))-135;
+
+    }
+
+    public void resetHeadingDepot(){
+        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))+135;
+    }
+
     public float getHeading (){
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = imu.getGravity();

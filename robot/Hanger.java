@@ -18,7 +18,7 @@ public class Hanger extends Mechanism {
         winch = getHwMotor("winch");
         hmp.put(mName("LockVal"), new Param(0.5));
         hmp.put(mName("UnlockVal"), new Param(0.2));
-        hmp.put(mName("EncToLand"),new Param(4372));
+        hmp.put(mName("EncToLand"),new Param(4700));
         hmp.get(mName("LockVal")).setStandardServo();
         hmp.get(mName("UnlockVal")).setStandardServo();
         hmp.get(mName("EncToLand")).setStandardEnc();
