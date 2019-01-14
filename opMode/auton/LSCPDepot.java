@@ -7,7 +7,6 @@ public class LSCPDepot extends RovrAuton{
 
     public LSCPDepot(){
         super();
-        paramFileName = "LSCParams";
     }
 
     @Override

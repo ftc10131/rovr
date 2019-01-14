@@ -7,7 +7,6 @@ public class LSCPCrater extends RovrAuton {
 
     public LSCPCrater() {
         super();
-        paramFileName = "LSCParams";
     }
 
     @Override
