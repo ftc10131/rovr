@@ -1,3 +1,15 @@
+package rovr.opMode.auton;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import java.util.HashMap;
+
+import rovr.robot.Robot;
+import rovr.util.Param;
+import rovr.util.ParamManager;
+
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,89 +39,51 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package rovr.opMode.auton;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-
-import java.util.HashMap;
-
-import rovr.robot.Robot;
-import rovr.util.Param;
-import rovr.util.ParamManager;
-
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * <p>
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal structure that all linear OpModes contain.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Basic", group="Autonomous")
+@Autonomous(name = "Basic", group = "Autonomous")
 //@Disabled
-public class BasicAuton extends LinearOpMode {
+public class RovrAuton extends BasicAuton {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     public HashMap hmp;
     boolean editing;
-    Robot hyrule;
+    boolean startingAtCrater;
     ParamManager paramManager;
     public String paramFileName;
 
-    public BasicAuton(){
+    public RovrAuton() {
         super();
-        paramFileName = "BasicAutonParams";
+        startingAtCrater = true;
+        paramFileName = "RovrAutonParams";
     }
 
-    public void runMe(){
+    public void sample() {
+
     }
 
-    @Override
-    public void runOpMode() {
-        hmp = new HashMap<String,Param>();
-        hyrule = new Robot(hardwareMap);
-        paramManager = new ParamManager();
+    public void land() {
 
-        editing = false;
-        telemetry.addData("Status", "Initializing");
-        telemetry.update();
-        hyrule.init(true);
-        paramManager.loadFromFile(hardwareMap.appContext, paramFileName,hmp);
+    }
 
-        // Wait for the game to start (driver presses PLAY)
-        while(!opModeIsActive()&&!isStopRequested()){
-            if(gamepad1.dpad_right && gamepad1.a){
-                editing = true;
-            }
+    public void claimAfterSample() {
 
-            telemetry.addData("Status", "Initialized");
+    }
 
-            if(editing){
-                paramManager.respondToGamePadAndTelemetry(gamepad1, hmp,this);
-            }
-            telemetry.update();
-        }
-        runtime.reset();
-        hyrule.start();
-        // run until the end of the match (driver presses STOP)
-        if(editing){
-            paramManager.saveToFile(hardwareMap.appContext,hyrule.paramFileName,hyrule.hmp);
-        }else{
-            runMe();
-        }
-        hyrule.stop();
+    public void parkAfterClaim() {
+
     }
 }
