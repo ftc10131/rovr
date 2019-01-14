@@ -47,85 +47,28 @@ import java.util.List;
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * <p>
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal structure that all linear OpModes contain.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Sample", group="Autonomous")
+@Autonomous(name = "Sample", group = "Autonomous")
 //@Disabled
-public class SampleAuton extends BasicAuton {
+public class SampleAuton extends RovrAuton {
 
     public int goldLocation;
 
-    public SampleAuton(){
+    public SampleAuton() {
         super();
         //hmp.put("",1);
-        paramFileName = "SampleAutonParams";
     }
 
     @Override
-    public void runMe(){
-        hyrule.ploop.autonFullDown(this);
-        //hyrule.sorter.dumpBlock();
-        sleep(250);
-
-        double degrees = 1.05 * hyrule.vision.degreesToGold(this);
-
-        hyrule.driveTrain.holoDrive(0,0.33,0);
-        sleep(500);
-        hyrule.driveTrain.stop();
-        sleep(500);
-
-
-        //telemetry.addData("Degrees: " , degrees);
-        //telemetry.update();
-
-
-        hyrule.driveTrain.turnDegrees(degrees,hyrule.gyro,this);
-        hyrule.intake.in();
-        hyrule.driveTrain.holoDrive(0,0.5,0);
-        if(degrees!=0)
-            sleep(1000);
-        sleep(1000);
-        hyrule.driveTrain.stop();
-        sleep(1000);
-        hyrule.intake.stopPower();
-
-
-            //Insert vision check for gold mineral here
-        /*while(opModeIsActive()){
-            List<Recognition> recog = hyrule.vision.getGold();
-            if(recog != null){
-                for (Recognition r : recog) {
-                    telemetry.addData("GoldLeft" , r.getLeft());
-                    telemetry.addData("GoldRight", r.getRight());
-                    telemetry.addData("GoldTop", r.getTop());
-                    telemetry.addData("GoldBottom", r.getBottom());
-
-                }
-            }else{
-                telemetry.addData("Gold: ", "No recogognitions");
-            }
-            telemetry.update();
-            sleep(20);
-        }
-        goldLocation = 1;
-        switch (goldLocation){
-            case 1:
-                hyrule.intake.in();
-                hyrule.driveTrain.holoDrive(0,0.5,0);
-                sleep(1000);
-                hyrule.driveTrain.stop();
-                hyrule.intake.stopPower();
-                break;
-            default:
-        }*/
-
-        hyrule.driveTrain.stop();
+    public void runMe() {
+        sample();
     }
-
 }
+

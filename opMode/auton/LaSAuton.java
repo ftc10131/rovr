@@ -47,30 +47,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name="LandAndSample", group="Autonomous")
 //@Disabled
-public class LaSAuton extends SampleAuton {
+public class LaSAuton extends RovrAuton {
 
-    public LaSAuton(){
+    public LaSAuton() {
         super();
         //hmp.put("",1);
-        paramFileName = "LandAndSampleAutonParams";
     }
 
     @Override
-    public void runMe(){
-        hyrule.hanger.land(this);
-        hyrule.driveTrain.holoDrive(-0.5,0.1,0);
-        sleep(400);
-        hyrule.driveTrain.stop();
-        hyrule.hanger.pullDownHalfway(this);
-        //hyrule.driveTrain.holoDrive(0,00,0);
-        //sleep(15000);
-        hyrule.driveTrain.holoDrive(0.5,0,0);
-        sleep(400);
-        hyrule.driveTrain.holoDrive(0,-0.5,0);
-        sleep(333);
-        hyrule.driveTrain.stop();
-
-        super.runMe();
+    public void runMe() {
+        land();
+        sample();
     }
-
 }
