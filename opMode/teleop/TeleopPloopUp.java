@@ -169,8 +169,8 @@ public class TeleopPloopUp extends OpMode {
 
 
         if(gamepad2.y) {
-            hyrule.ballDumper.dump();
-            hyrule.blockDumper.dump();
+            hyrule.ballDumper.slowDump(this);
+            hyrule.blockDumper.slowDump(this);
         }else{
             hyrule.ballDumper.collect();
             hyrule.blockDumper.collect();
