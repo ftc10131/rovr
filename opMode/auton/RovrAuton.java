@@ -62,21 +62,52 @@ public class RovrAuton extends BasicAuton {
     public HashMap hmp;
     boolean editing;
     boolean startingAtCrater;
+    double degrees;
     ParamManager paramManager;
     public String paramFileName;
 
     public RovrAuton() {
         super();
         startingAtCrater = true;
+        degrees = 0;
         paramFileName = "RovrAutonParams";
     }
 
     public void sample() {
+        hyrule.ploop.autonFullDown(this);
+        sleep(250);
 
+        degrees = 1.05 * hyrule.vision.degreesToGold(this);
+
+        hyrule.driveTrain.holoDrive(0, 0.33, 0);
+        sleep(500);
+        hyrule.driveTrain.stop();
+        sleep(500);
+
+        hyrule.driveTrain.turnDegrees(degrees, hyrule.gyro, this);
+        hyrule.intake.in();
+        hyrule.driveTrain.holoDrive(0, 0.5, 0);
+        if (degrees != 0)
+            sleep(1000);
+        sleep(1000);
+        hyrule.driveTrain.stop();
+        sleep(1000);
+        hyrule.intake.stopPower();
     }
 
     public void land() {
-
+        hyrule.hanger.land(this);
+        hyrule.driveTrain.holoDrive(-0.5,0.1,0);
+        sleep(400);
+        hyrule.driveTrain.stop();
+        hyrule.hanger.pullDownHalfway(this);
+        //hyrule.driveTrain.holoDrive(0,00,0);
+        //sleep(15000);
+        hyrule.driveTrain.holoDrive(0.5,0,0);
+        sleep(400);
+        hyrule.driveTrain.holoDrive(0,-0.5,0);
+        sleep(333);
+        hyrule.driveTrain.stop();
     }
 
     public void claimAfterSample() {
