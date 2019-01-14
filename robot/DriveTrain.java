@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import rovr.robot.sensors.Gyro;
+import rovr.util.Param;
 
 public class DriveTrain extends Mechanism {
 
@@ -24,6 +25,8 @@ public class DriveTrain extends Mechanism {
         frontRight = getHwMotor("frontRight");
         backLeft = getHwMotor("backLeft");
         backRight = getHwMotor("backRight");
+        hmp.put(mName("TileEnc"), new Param(1440));
+        hmp.get(mName("TileEnc")).setStandardEnc();
     }
 
     public void init(){
@@ -102,6 +105,25 @@ public class DriveTrain extends Mechanism {
 
         }
         stop();
+    }
+
+    public void moveEnc( double speed , double tiles ){
+        int totalEnc = (int)(tiles * getPVal("TileEnc"));
+        int currentEnc = frontLeft.getCurrentPosition();
+        int startEnc = currentEnc;
+        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc){
+            holoDrive(0,speed,0);
+        }
+
+    }
+
+    public void strafeEnc(double speed , double tiles){
+        int totalEnc = (int)(tiles * getPVal("TileEnc"));
+        int currentEnc = frontLeft.getCurrentPosition();
+        int startEnc = currentEnc;
+        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc){
+            holoDrive(speed,0,0);
+        }
     }
 
     public void start(){
