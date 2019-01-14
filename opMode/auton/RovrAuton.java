@@ -97,21 +97,33 @@ public class RovrAuton extends BasicAuton {
 
     public void land() {
         hyrule.hanger.land(this);
-        hyrule.driveTrain.holoDrive(-0.5,0.1,0);
+        hyrule.driveTrain.holoDrive(-0.5, 0.1, 0);
         sleep(400);
         hyrule.driveTrain.stop();
         hyrule.hanger.pullDownHalfway(this);
         //hyrule.driveTrain.holoDrive(0,00,0);
         //sleep(15000);
-        hyrule.driveTrain.holoDrive(0.5,0,0);
+        hyrule.driveTrain.holoDrive(0.5, 0, 0);
         sleep(400);
-        hyrule.driveTrain.holoDrive(0,-0.5,0);
+        hyrule.driveTrain.holoDrive(0, -0.5, 0);
         sleep(333);
         hyrule.driveTrain.stop();
     }
 
     public void claimAfterSample() {
-
+        //ploop up
+        //back up
+        //turn back
+        //move??
+        //strafe left (1.4 tiles?)
+        //turn back towards depot
+        //strafe to wall
+        //strafe away a little bit
+        //back up 1.8 tiles
+        //ploop down
+        //turn a little
+        //dump marker
+        //turn back
     }
 
     public void parkAfterClaim() {
