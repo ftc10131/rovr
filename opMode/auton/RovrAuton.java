@@ -73,6 +73,21 @@ public class RovrAuton extends BasicAuton {
         paramFileName = "RovrAutonParams";
     }
 
+    public void land() {
+        hyrule.hanger.land(this);
+        hyrule.driveTrain.holoDrive(-0.5, 0.1, 0);
+        sleep(400);
+        hyrule.driveTrain.stop();
+        hyrule.hanger.pullDownHalfway(this);
+        //hyrule.driveTrain.holoDrive(0,00,0);
+        //sleep(15000);
+        hyrule.driveTrain.holoDrive(0.5, 0, 0);
+        sleep(400);
+        hyrule.driveTrain.holoDrive(0, -0.5, 0);
+        sleep(333);
+        hyrule.driveTrain.stop();
+    }
+
     public void sample() {
         hyrule.ploop.autonFullDown(this);
         sleep(250);
@@ -95,35 +110,58 @@ public class RovrAuton extends BasicAuton {
         hyrule.intake.stopPower();
     }
 
-    public void land() {
-        hyrule.hanger.land(this);
-        hyrule.driveTrain.holoDrive(-0.5, 0.1, 0);
-        sleep(400);
-        hyrule.driveTrain.stop();
-        hyrule.hanger.pullDownHalfway(this);
-        //hyrule.driveTrain.holoDrive(0,00,0);
-        //sleep(15000);
-        hyrule.driveTrain.holoDrive(0.5, 0, 0);
-        sleep(400);
-        hyrule.driveTrain.holoDrive(0, -0.5, 0);
-        sleep(333);
-        hyrule.driveTrain.stop();
-    }
-
     public void claimAfterSample() {
         //ploop up
+        hyrule.ploop.autonFullUp(this);
         //back up
+        hyrule.driveTrain.holoDrive(0, -0.5, 0);
+        if (degrees != 0)
+            sleep(1000);
+        sleep(1000);
+        hyrule.driveTrain.stop();
         //turn back
+        hyrule.driveTrain.turnDegrees(-degrees, hyrule.gyro, this);
         //move??
         //strafe left (1.4 tiles?)
+        hyrule.driveTrain.strafeEnc(0.5, 1.4);
         //turn back towards depot
-        //strafe to wall
-        //strafe away a little bit
+        if (startingAtCrater == true) {
+            hyrule.driveTrain.turnDegrees(-45, hyrule.gyro, this);
+        } else {
+            hyrule.driveTrain.turnDegrees(135, hyrule.gyro, this);
+
+        }
+        //strafe to wall and away a bit
+        if (startingAtCrater == true) {
+            hyrule.driveTrain.strafeEnc(-0.5, 0.5);
+            hyrule.driveTrain.strafeEnc(0.5, 0.1);
+        } else {
+            hyrule.driveTrain.strafeEnc(0.5, 0.5);
+            hyrule.driveTrain.strafeEnc(-0.5, 0.1);
+        }
+
         //back up 1.8 tiles
+        hyrule.driveTrain.moveEnc(-0.5, 1.8);
         //ploop down
+        hyrule.ploop.autonFullDown(this);
         //turn a little
+        if (startingAtCrater == true) {
+            hyrule.driveTrain.turnDegrees(15, hyrule.gyro, this);
+        } else {
+            hyrule.driveTrain.turnDegrees(-15, hyrule.gyro, this);
+        }
         //dump marker
+        if (startingAtCrater == true) {
+            hyrule.blockDumper.dump();
+        } else {
+            hyrule.ballDumper.dump();
+        }
         //turn back
+        if (startingAtCrater == true) {
+            hyrule.driveTrain.turnDegrees(-15, hyrule.gyro, this);
+        } else {
+            hyrule.driveTrain.turnDegrees(15, hyrule.gyro, this);
+        }
     }
 
     public void parkAfterClaim() {
