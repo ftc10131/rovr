@@ -1,6 +1,7 @@
 package rovr.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -25,7 +26,7 @@ public class DriveTrain extends Mechanism {
         frontRight = getHwMotor("frontRight");
         backLeft = getHwMotor("backLeft");
         backRight = getHwMotor("backRight");
-        hmp.put(mName("TileEnc"), new Param(1440));
+        hmp.put(mName("TileEnc"), new Param(3535));
         hmp.get(mName("TileEnc")).setStandardEnc();
     }
 
@@ -107,21 +108,23 @@ public class DriveTrain extends Mechanism {
         stop();
     }
 
-    public void moveEnc( double speed , double tiles ){
+    public void moveEnc(double speed , double tiles , LinearOpMode om){
+        double startTime = om.getRuntime();
         int totalEnc = (int)(tiles * getPVal("TileEnc"));
         int currentEnc = frontLeft.getCurrentPosition();
         int startEnc = currentEnc;
-        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc){
+        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && om.getRuntime() - startTime < 3*tiles){
             holoDrive(0,speed,0);
         }
 
     }
 
-    public void strafeEnc(double speed , double tiles){
+    public void strafeEnc(double speed , double tiles , LinearOpMode om){
+        double startTime = om.getRuntime();
         int totalEnc = (int)(tiles * getPVal("TileEnc"));
         int currentEnc = frontLeft.getCurrentPosition();
         int startEnc = currentEnc;
-        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc){
+        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && om.getRuntime() - startTime < 3*tiles){
             holoDrive(speed,0,0);
         }
     }
