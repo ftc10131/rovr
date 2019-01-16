@@ -72,9 +72,22 @@ public class RovrAuton extends BasicAuton {
         startingAtCrater = true;
         degrees = 0;
         paramFileName = "RovrAutonParams";
+        hmp.put("RAClaimSteps", new Param(11));
+        setParamUpdateStep("RAClaimSteps", 1);
+        hmp.put("RAC-StrafeTiles1", new Param(1.4));
+        setParamUpdateStep("RAC-StrafeTiles1", 0.1);
+        hmp.put("RAC-StrafeTiles2", new Param(0.5));
+        setParamUpdateStep("RAC-StrafeTiles2", 0.1);
+        hmp.put("RAC-StrafeTiles3", new Param(0.1));
+        setParamUpdateStep("RAC-StrafeTiles3", 0.05);
+        hmp.put("RAC-MoveTiles1", new Param(1.8));
+        setParamUpdateStep("RAC-MoveTiles1", 0.1);
+        hmp.put("RAC-TurnToDump1", new Param(15));
+        setParamUpdateStep("RAC-TurnToDump1", 0.05);
+        hmp.put("RAP-TilesToPark1", new Param(3));
+        setParamUpdateStep("RAP-TilesToPark1", 0.1);
+
     }
-
-
 
     public void land() {
         hyrule.hanger.land(this);
@@ -114,20 +127,26 @@ public class RovrAuton extends BasicAuton {
     }
 
     public void claimAfterSample() {
+        Param p = (Param) hmp.get("RAClaimSteps");
+        int steps = (int) p.getValue();
         //ploop up
         hyrule.ploop.autonFullUp(this);
+        if (steps == 1) return;
         //back up
         hyrule.driveTrain.holoDrive(0, -0.5, 0);
         if (degrees != 0)
             sleep(1000);
         sleep(1000);
         hyrule.driveTrain.stop();
+        if (steps == 2) return;
         //turn back
         hyrule.driveTrain.turnDegrees(-degrees, hyrule.gyro, this);
-        //move
-        hyrule.driveTrain.moveEnc(0.5, 0.5 , this);
+        if (steps == 3) return;
+        //move??
+        if (steps == 4) return;
         //strafe left (1.4 tiles?)
-        hyrule.driveTrain.strafeEnc(-0.5, 1.4 , this);
+        hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles1"),this);
+        if (steps == 5) return;
         //turn back towards depot
         if (startingAtCrater == true) {
             hyrule.driveTrain.turnDegrees(-45, hyrule.gyro, this);
@@ -135,25 +154,29 @@ public class RovrAuton extends BasicAuton {
             hyrule.driveTrain.turnDegrees(135, hyrule.gyro, this);
 
         }
+        if (steps == 6) return;
         //strafe to wall and away a bit
         if (startingAtCrater == true) {
-            hyrule.driveTrain.strafeEnc(-0.5, 0.5 , this);
-            hyrule.driveTrain.strafeEnc(0.5, 0.1 , this);
+            hyrule.driveTrain.strafeEnc(-0.5, getPVal("RAC-StrafeTiles2"),this);
+            hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles3"),this);
         } else {
-            hyrule.driveTrain.strafeEnc(0.5, 0.5 , this);
-            hyrule.driveTrain.strafeEnc(-0.5, 0.1 , this);
+            hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles2"),this);
+            hyrule.driveTrain.strafeEnc(-0.5, getPVal("RAC-StrafeTiles3"),this);
         }
-
+        if (steps == 7) return;
         //back up 1.8 tiles
-        hyrule.driveTrain.moveEnc(-0.5, 1.8 , this);
+        hyrule.driveTrain.moveEnc(-0.5, getPVal("RAC-StrafeMove1"),this);
+        if (steps == 8) return;
         //ploop down
         hyrule.ploop.autonFullDown(this);
+        if (steps == 9) return;
         //turn a little
         if (startingAtCrater == true) {
-            hyrule.driveTrain.turnDegrees(15, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(getPVal("RAC-TurnToDump1"), hyrule.gyro, this);
         } else {
-            hyrule.driveTrain.turnDegrees(-15, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(-getPVal("RAC-TurnToDump"), hyrule.gyro, this);
         }
+        if (steps == 9) return;
         //dump marker
         if (startingAtCrater == true) {
             hyrule.blockDumper.dump();
@@ -166,16 +189,27 @@ public class RovrAuton extends BasicAuton {
             hyrule.ballDumper.collect();
             sleep(1000);
         }
+        if (steps == 10) return;
         //turn back
         if (startingAtCrater == true) {
-            hyrule.driveTrain.turnDegrees(-15, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(-getPVal("RAC-TurnToDump"), hyrule.gyro, this);
         } else {
-            hyrule.driveTrain.turnDegrees(15, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(getPVal("RAC-TurnToDump"), hyrule.gyro, this);
         }
+        if (steps ==11) return;
     }
 
     public void parkAfterClaim() {
         hyrule.ploop.autonFullUp(this);
-        hyrule.driveTrain.moveEnc(0.5, 3 , this );
+        hyrule.driveTrain.moveEnc(0.5, getPVal("RAP-TilesToPark"),this);
+
+    }
+    public double getPVal(String s){
+        Param p = (Param)hmp.get(s);
+        return p.getValue();
+    }
+    public void setParamUpdateStep(String s, double d){
+        Param p = (Param)hmp.get(s);
+        p.setUpdateStep(d);
     }
 }

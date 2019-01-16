@@ -53,6 +53,10 @@ public class Param {
         max = newMax;
     }
 
+    public void setUpdateStep(double u){
+        updateStep=u;
+    }
+
     public void increaseByStep(){
         setValue(value + updateStep);
     }
