@@ -74,6 +74,18 @@ public class RovrAuton extends BasicAuton {
         paramFileName = "RovrAutonParams";
     }
 
+    public void forwardTile(){
+        sleep(500);
+        hyrule.driveTrain.moveEnc(0.5,1,this);
+        sleep(500);
+    }
+
+    public void rightTile(){
+        sleep(500);
+        hyrule.driveTrain.strafeEnc(0.5,1,this);
+        sleep(500);
+    }
+
     public void land() {
         hyrule.hanger.land(this);
         hyrule.driveTrain.holoDrive(-0.5, 0.1, 0);
@@ -174,6 +186,6 @@ public class RovrAuton extends BasicAuton {
 
     public void parkAfterClaim() {
         hyrule.ploop.autonFullUp(this);
-        hyrule.driveTrain.moveEnc(0.5, 3 , this);
+        hyrule.driveTrain.moveEnc(0.5, 3 , this );
     }
 }

@@ -26,7 +26,7 @@ public class DriveTrain extends Mechanism {
         frontRight = getHwMotor("frontRight");
         backLeft = getHwMotor("backLeft");
         backRight = getHwMotor("backRight");
-        hmp.put(mName("TileEnc"), new Param(3535));
+        hmp.put(mName("TileEnc"), new Param(714));
         hmp.get(mName("TileEnc")).setStandardEnc();
     }
 
@@ -115,6 +115,9 @@ public class DriveTrain extends Mechanism {
         int startEnc = currentEnc;
         while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && om.getRuntime() - startTime < 3*tiles){
             holoDrive(0,speed,0);
+            currentEnc = frontLeft.getCurrentPosition();
+            om.telemetry.addData("EncValue ", currentEnc-startEnc);
+            om.telemetry.update();
         }
 
     }
@@ -126,6 +129,9 @@ public class DriveTrain extends Mechanism {
         int startEnc = currentEnc;
         while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && om.getRuntime() - startTime < 3*tiles){
             holoDrive(speed,0,0);
+            currentEnc = frontLeft.getCurrentPosition();
+            om.telemetry.addData("EncValue ", currentEnc-startEnc);
+            om.telemetry.update();
         }
     }
 
