@@ -74,17 +74,7 @@ public class RovrAuton extends BasicAuton {
         paramFileName = "RovrAutonParams";
     }
 
-    public void forwardTile(){
-        sleep(500);
-        hyrule.driveTrain.moveEnc(0.5,1,this);
-        sleep(500);
-    }
 
-    public void rightTile(){
-        sleep(500);
-        hyrule.driveTrain.strafeEnc(0.5,1,this);
-        sleep(500);
-    }
 
     public void land() {
         hyrule.hanger.land(this);
