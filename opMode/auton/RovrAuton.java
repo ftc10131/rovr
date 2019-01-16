@@ -145,7 +145,7 @@ public class RovrAuton extends BasicAuton {
         //move??
         if (steps == 4) return;
         //strafe left (1.4 tiles?)
-        hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles1"));
+        hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles1"),this);
         if (steps == 5) return;
         //turn back towards depot
         if (startingAtCrater == true) {
@@ -157,15 +157,15 @@ public class RovrAuton extends BasicAuton {
         if (steps == 6) return;
         //strafe to wall and away a bit
         if (startingAtCrater == true) {
-            hyrule.driveTrain.strafeEnc(-0.5, getPVal("RAC-StrafeTiles2"));
-            hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles3"));
+            hyrule.driveTrain.strafeEnc(-0.5, getPVal("RAC-StrafeTiles2"),this);
+            hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles3"),this);
         } else {
-            hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles2"));
-            hyrule.driveTrain.strafeEnc(-0.5, getPVal("RAC-StrafeTiles3"));
+            hyrule.driveTrain.strafeEnc(0.5, getPVal("RAC-StrafeTiles2"),this);
+            hyrule.driveTrain.strafeEnc(-0.5, getPVal("RAC-StrafeTiles3"),this);
         }
         if (steps == 7) return;
         //back up 1.8 tiles
-        hyrule.driveTrain.moveEnc(-0.5, getPVal("RAC-StrafeMove1"));
+        hyrule.driveTrain.moveEnc(-0.5, getPVal("RAC-StrafeMove1"),this);
         if (steps == 8) return;
         //ploop down
         hyrule.ploop.autonFullDown(this);
@@ -201,7 +201,7 @@ public class RovrAuton extends BasicAuton {
 
     public void parkAfterClaim() {
         hyrule.ploop.autonFullUp(this);
-        hyrule.driveTrain.moveEnc(0.5, getPVal("RAP-TilesToPark"));
+        hyrule.driveTrain.moveEnc(0.5, getPVal("RAP-TilesToPark"),this);
 
     }
     public double getPVal(String s){
