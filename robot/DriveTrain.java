@@ -119,6 +119,7 @@ public class DriveTrain extends Mechanism {
             om.telemetry.addData("EncValue ", currentEnc-startEnc);
             om.telemetry.update();
         }
+        stop();
 
     }
 
@@ -133,6 +134,7 @@ public class DriveTrain extends Mechanism {
             om.telemetry.addData("EncValue ", currentEnc-startEnc);
             om.telemetry.update();
         }
+        stop();
     }
 
     public void start(){
