@@ -60,7 +60,6 @@ public class RovrAuton extends BasicAuton {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    public HashMap hmp;
     boolean editing;
     boolean startingAtCrater;
     double degrees;
@@ -87,6 +86,18 @@ public class RovrAuton extends BasicAuton {
         hmp.put("RAP-TilesToPark1", new Param(3));
         setParamUpdateStep("RAP-TilesToPark1", 0.1);
 
+    }
+
+    public void forwardTile(){
+        sleep(500);
+        hyrule.driveTrain.moveEnc(0.5,1,this);
+        sleep(500);
+    }
+
+    public void rightTile(){
+        sleep(500);
+        hyrule.driveTrain.strafeEnc(0.5,1,this);
+        sleep(500);
     }
 
     public void land() {

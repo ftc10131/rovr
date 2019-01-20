@@ -72,6 +72,7 @@ public class BasicAuton extends LinearOpMode {
     public BasicAuton(){
         super();
         paramFileName = "BasicAutonParams";
+        hmp = new HashMap<String,Param>();
     }
 
     public void runMe(){
@@ -79,7 +80,6 @@ public class BasicAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        hmp = new HashMap<String,Param>();
         hyrule = new Robot(hardwareMap);
         paramManager = new ParamManager();
 
@@ -87,7 +87,9 @@ public class BasicAuton extends LinearOpMode {
         telemetry.addData("Status", "Initializing");
         telemetry.update();
         hyrule.init(true);
+        int firstSize = hmp.size();
         paramManager.loadFromFile(hardwareMap.appContext, paramFileName,hmp);
+        int secondSize = hmp.size();
 
         // Wait for the game to start (driver presses PLAY)
         while(!opModeIsActive()&&!isStopRequested()){
@@ -96,6 +98,8 @@ public class BasicAuton extends LinearOpMode {
             }
 
             telemetry.addData("Status", "Initialized");
+            telemetry.addData("firstSize ", firstSize);
+            telemetry.addData("secondSize ", secondSize);
 
             if(editing){
                 paramManager.respondToGamePadAndTelemetry(gamepad1, hmp,this);
