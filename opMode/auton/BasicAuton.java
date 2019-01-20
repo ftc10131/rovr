@@ -106,7 +106,7 @@ public class BasicAuton extends LinearOpMode {
         hyrule.start();
         // run until the end of the match (driver presses STOP)
         if(editing){
-            paramManager.saveToFile(hardwareMap.appContext,hyrule.paramFileName,hyrule.hmp);
+            paramManager.saveToFile(hardwareMap.appContext,paramFileName,hmp);
         }else{
             runMe();
         }
