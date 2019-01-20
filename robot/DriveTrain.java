@@ -110,11 +110,14 @@ public class DriveTrain extends Mechanism {
 
     public void moveEnc(double speed , double tiles , LinearOpMode om){
         double startTime = om.getRuntime();
-        int totalEnc = (int)(tiles * getPVal("TileEnc"));
+        int totalEnc = Math.abs((int)(tiles * getPVal("TileEnc")));
         int currentEnc = frontLeft.getCurrentPosition();
         int startEnc = currentEnc;
-        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && om.getRuntime() - startTime < 3*tiles){
-            holoDrive(0,speed,0);
+        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3*tiles))){
+            if(tiles < 0)
+                holoDrive(0,-speed,0);
+            else
+                holoDrive(0,speed,0);
             currentEnc = frontLeft.getCurrentPosition();
             om.telemetry.addData("EncValue ", currentEnc-startEnc);
             om.telemetry.update();
@@ -125,11 +128,14 @@ public class DriveTrain extends Mechanism {
 
     public void strafeEnc(double speed , double tiles , LinearOpMode om){
         double startTime = om.getRuntime();
-        int totalEnc = (int)(tiles * getPVal("TileEnc"));
+        int totalEnc = Math.abs((int)(tiles * getPVal("TileEnc")));
         int currentEnc = frontLeft.getCurrentPosition();
         int startEnc = currentEnc;
-        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && om.getRuntime() - startTime < 3*tiles){
-            holoDrive(speed,0,0);
+        while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3*tiles))){
+            if(tiles < 0)
+                holoDrive(-speed,0,0);
+            else
+                holoDrive(speed,0,0);
             currentEnc = frontLeft.getCurrentPosition();
             om.telemetry.addData("EncValue ", currentEnc-startEnc);
             om.telemetry.update();

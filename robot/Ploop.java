@@ -57,6 +57,13 @@ public class Ploop extends Mechanism {
         //encMode = false;
     }
 
+    public void raiseFast() {
+        isPowered = true;
+        ploop.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ploop.setPower(-getPVal("Speed")*0.8);
+        //encMode = false;
+    }
+
     public void stop() {
         //if(!encMode) {
         ploop.setPower(0);
@@ -136,7 +143,7 @@ public class Ploop extends Mechanism {
 
     public void autonFullUp(LinearOpMode om){
         int startPos = ploop.getCurrentPosition();
-        raise();
+        raiseFast();
         double startTime = om.getRuntime();
         while((ploop.getCurrentPosition()-startPos) > -getPVal("FullDownVal") && om.opModeIsActive() && om.getRuntime()-startTime < 5){
             om.telemetry.addData("Ploop: ", "plooping " + ((ploop.getCurrentPosition()-startPos)));

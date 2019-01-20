@@ -125,14 +125,14 @@ public class RovrAuton extends BasicAuton {
 
         degrees = 1.05 * hyrule.vision.degreesToGold(this);
 
-        hyrule.driveTrain.holoDrive(0, getPVal("RA-Speed"), 0);
+        hyrule.driveTrain.holoDrive(0, 0.33, 0);
         sleep(500);
         hyrule.driveTrain.stop();
         sleep(500);
 
         hyrule.driveTrain.turnDegrees(degrees, hyrule.gyro, this);
         hyrule.intake.in();
-        hyrule.driveTrain.holoDrive(0, getPVal("RA-Speed"), 0);
+        hyrule.driveTrain.holoDrive(0, 0.5, 0);
         if (degrees != 0)
             sleep(300);
         sleep(1000);
@@ -144,15 +144,16 @@ public class RovrAuton extends BasicAuton {
     public void claimAfterSample() {
         Param p = (Param) hmp.get("RAClaimSteps");
         int steps = (int) p.getValue();
-        //ploop up
-        hyrule.ploop.autonFullUp(this);
-        if (steps <= 1 + 0.01) return;
         //back up
         hyrule.driveTrain.holoDrive(0, -0.5, 0);
         if (degrees != 0)
             sleep(300);
         sleep(1000);
         hyrule.driveTrain.stop();
+        if (steps <= 1 + 0.01) return;
+        //ploop up
+        hyrule.ploop.startingDown();
+        hyrule.ploop.autonFullUp(this);
         if (steps <= 2 + 0.01) return;
         //turn back
         hyrule.driveTrain.turnDegrees(-degrees, hyrule.gyro, this);
@@ -167,7 +168,7 @@ public class RovrAuton extends BasicAuton {
         if (startingAtCrater == true) {
             hyrule.driveTrain.turnDegrees(45, hyrule.gyro, this);
         } else {
-            hyrule.driveTrain.turnDegrees(-135, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(-120, hyrule.gyro, this);
 
         }
         if (steps <= 6 + 0.01) return;
@@ -208,10 +209,10 @@ public class RovrAuton extends BasicAuton {
         if (steps <= 11 + 0.01) return;
         //turn back
         if (startingAtCrater == true) {
-            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -getPVal("RAC-StrafeTiles3"), this);
+            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -2*getPVal("RAC-StrafeTiles3"), this);
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), getPVal("RAC-StrafeTiles3"), this);
         } else {
-            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), getPVal("RAC-StrafeTiles3"), this);
+            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), 2*getPVal("RAC-StrafeTiles3"), this);
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -getPVal("RAC-StrafeTiles3"), this);
         }
         if (steps <= 12 + 0.01) return;
