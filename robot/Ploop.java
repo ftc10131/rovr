@@ -60,7 +60,7 @@ public class Ploop extends Mechanism {
     public void raiseFast() {
         isPowered = true;
         ploop.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        ploop.setPower(-getPVal("Speed")*0.8);
+        ploop.setPower(-getPVal("Speed")*0.9);
         //encMode = false;
     }
 

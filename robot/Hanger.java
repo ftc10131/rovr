@@ -62,7 +62,7 @@ public class Hanger extends Mechanism {
 
     public void land(LinearOpMode om){
         liftRobot();
-        om.sleep(333);
+        om.sleep(200);
         unlock();
         om.sleep(333);
         dropRobot();

@@ -181,9 +181,16 @@ public class Vision extends Mechanism {
         if (tfod != null) {
             boolean foundGold = false;
             double startTime = om.getRuntime();
+            double firstTime=-1;
+            double firstDegrees=999;
             double lowestY = -1;
             double centerX = 640;
-            while(!foundGold && om.opModeIsActive() && om.getRuntime()-startTime < 2.5){
+            while(om.opModeIsActive() && om.getRuntime()-startTime < 1.0){
+                om.telemetry.clearAll();
+                if (foundGold) {
+                    om.telemetry.addData("First Time", firstTime);
+                    om.telemetry.addData("First Degrees", firstDegrees);
+                }
                 List<Recognition> recog = getGold();
                 if(recog != null) {
                     for (Recognition r : recog) {
@@ -193,6 +200,12 @@ public class Vision extends Mechanism {
                         //om.telemetry.addData("GoldBottom", r.getBottom());
                         //om.telemetry.update();
                         if (r.getBottom() > 520) {
+                            if (!foundGold) {
+                                firstTime = om.getRuntime() - startTime;
+                                firstDegrees=(((r.getLeft() + r.getRight()) / 2)-640)*19/460;
+                            }
+                            foundGold=true;
+                            om.telemetry.addData("GoldDegrees " , (((r.getLeft() + r.getRight()) / 2)-640)*19/460);
                             if (r.getBottom() > lowestY) {
                                 lowestY = r.getBottom();
                                 centerX = (r.getLeft() + r.getRight()) / 2;
@@ -201,6 +214,7 @@ public class Vision extends Mechanism {
                         }
                     }
                 }
+                om.telemetry.update();
             }
             return (centerX-640)*19/460;
         }

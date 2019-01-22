@@ -98,8 +98,6 @@ public class BasicAuton extends LinearOpMode {
             }
 
             telemetry.addData("Status", "Initialized");
-            telemetry.addData("firstSize ", firstSize);
-            telemetry.addData("secondSize ", secondSize);
 
             if(editing){
                 paramManager.respondToGamePadAndTelemetry(gamepad1, hmp,this);

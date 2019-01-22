@@ -81,15 +81,15 @@ public class RovrAuton extends BasicAuton {
         setParamUpdateStep("RAC-StrafeTiles3", 0.05);
         hmp.put("RAC-StrafeTiles4", new Param(0.4));
         setParamUpdateStep("RAC-StrafeTiles4", 0.05);
-        hmp.put("RAC-MoveTiles1", new Param(-2.7));
+        hmp.put("RAC-MoveTiles1", new Param(-2.5));
         setParamUpdateStep("RAC-MoveTiles1", 0.05);
         hmp.put("RAC-TurnToDump1", new Param(15));
         setParamUpdateStep("RAC-TurnToDump1", 0.05);
-        hmp.put("RAP-TilesToPark", new Param(5.1));
+        hmp.put("RAP-TilesToPark", new Param(3.5));
         setParamUpdateStep("RAP-TilesToPark", 0.1);
         hmp.put("RAC-Move1", new Param(0.9));
         setParamUpdateStep("RAC-Move1", 0.1);
-        hmp.put("RA-Speed", new Param(0.5));
+        hmp.put("RA-Speed", new Param(0.6));
         setParamUpdateStep("RA-Speed", 0.05);
 
     }
@@ -123,14 +123,14 @@ public class RovrAuton extends BasicAuton {
 
     public void sample() {
         hyrule.ploop.autonFullDown(this);
-        sleep(250);
+        //sleep(250);
 
-        degrees = 1.05 * hyrule.vision.degreesToGold(this);
+        degrees = 0.85 * hyrule.vision.degreesToGold(this);
 
         hyrule.driveTrain.holoDrive(0, 0.33, 0);
         sleep(500);
         hyrule.driveTrain.stop();
-        sleep(500);
+        sleep(250);
 
         hyrule.driveTrain.turnDegrees(degrees, hyrule.gyro, this);
         hyrule.intake.in();
@@ -139,7 +139,7 @@ public class RovrAuton extends BasicAuton {
             sleep(300);
         sleep(1000);
         hyrule.driveTrain.stop();
-        sleep(1000);
+        //sleep(1000);
         hyrule.intake.stopPower();
     }
 
@@ -147,10 +147,13 @@ public class RovrAuton extends BasicAuton {
         Param p = (Param) hmp.get("RAClaimSteps");
         int steps = (int) p.getValue();
         //back up
+        hyrule.intake.in();
         hyrule.driveTrain.holoDrive(0, -0.5, 0);
         if (degrees != 0)
             sleep(300);
-        sleep(1000);
+        sleep(750);
+        hyrule.intake.stopPower();
+        sleep(250);
         hyrule.driveTrain.stop();
         if (steps <= 1 + 0.01) return;
         //ploop up
@@ -168,9 +171,9 @@ public class RovrAuton extends BasicAuton {
         if (steps <= 5 + 0.01) return;
         //turn back towards depot
         if (startingAtCrater == true) {
-            hyrule.driveTrain.turnDegrees(45, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(40, hyrule.gyro, this);
         } else {
-            hyrule.driveTrain.turnDegrees(-120, hyrule.gyro, this);
+            hyrule.driveTrain.turnDegrees(-115, hyrule.gyro, this);
 
         }
         if (steps <= 6 + 0.01) return;
@@ -186,9 +189,6 @@ public class RovrAuton extends BasicAuton {
         //back up 1.8 tiles
         hyrule.driveTrain.moveEnc(getPVal("RA-Speed"), getPVal("RAC-MoveTiles1"), this);
         if (steps <= 8 + 0.01) return;
-        //ploop down
-        hyrule.ploop.autonFullDown(this);
-        if (steps <= 9 + 0.01) return;
         //Strafe into wall and out a bit
         if (startingAtCrater == true) {
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -getPVal("RAC-StrafeTiles4"), this);
@@ -197,18 +197,21 @@ public class RovrAuton extends BasicAuton {
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), getPVal("RAC-StrafeTiles4"), this);
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -getPVal("RAC-StrafeTiles3"), this);
         }
+        if (steps <= 9 + 0.01) return;
+        //ploop down
+        hyrule.ploop.autonFullDown(this);
         if (steps <= 10 + 0.01) return;
         //dump marker
         if (startingAtCrater == true) {
             hyrule.blockDumper.dump();
             sleep(1000);
             hyrule.blockDumper.collect();
-            sleep(1000);
+            sleep(500);
         } else {
             hyrule.ballDumper.dump();
             sleep(1000);
             hyrule.ballDumper.collect();
-            sleep(1000);
+            sleep(500);
         }
         if (steps <= 11 + 0.01) return;
         //strafe into wall and out again

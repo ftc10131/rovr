@@ -75,32 +75,32 @@ public class DriveTrain extends Mechanism {
         if(turnedDegrees < -180)
             turnedDegrees += 360;
         if(degrees > 1){
-            holoDrive(0,0, 0.3);
+            holoDrive(0,0, 0.425);
             while(om.opModeIsActive() && om.getRuntime() - startTime < 3 && turnedDegrees < degrees){
                 turnedDegrees = -gyro.getHeading() - startingDegrees;
                 if(turnedDegrees > 180)
                     turnedDegrees -= 360;
                 if(turnedDegrees < -180)
                     turnedDegrees += 360;
-                om.telemetry.addData("Starting Degrees: ", startingDegrees);
+               /* om.telemetry.addData("Starting Degrees: ", startingDegrees);
                 om.telemetry.addData("Current Degrees: ", currentDegrees);
                 om.telemetry.addData("Turned Degrees: ", turnedDegrees);
                 om.telemetry.addData("Gyro Heading: ", gyro.getHeading());
-                om.telemetry.update();
+                om.telemetry.update();*/
             }
         }else if(degrees < -1){
-            holoDrive(0,0, -0.3);
+            holoDrive(0,0, -0.425);
             while(om.opModeIsActive() && om.getRuntime() - startTime < 3 && turnedDegrees > degrees){
                 turnedDegrees = -gyro.getHeading() - startingDegrees;
                 if(turnedDegrees > 180)
                     turnedDegrees -= 360;
                 if(turnedDegrees < -180)
                     turnedDegrees += 360;
-                om.telemetry.addData("Starting Degrees: ", startingDegrees);
+                /*om.telemetry.addData("Starting Degrees: ", startingDegrees);
                 om.telemetry.addData("Current Degrees: ", currentDegrees);
                 om.telemetry.addData("Turned Degrees: ", turnedDegrees);
                 om.telemetry.addData("Gyro Heading: ", gyro.getHeading());
-                om.telemetry.update();
+                om.telemetry.update();*/
             }
         }else{
 
