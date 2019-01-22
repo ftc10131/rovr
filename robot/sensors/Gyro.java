@@ -52,17 +52,21 @@ public class Gyro extends Mechanism{
 
     }
 
-    public void resetHeading(){
+    public void resetHeadingForward(){
         headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
     }
 
-    public void resetHeadingCrater(){
-        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))-135;
+    public void resetHeadingLeft(){
+        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))-90;
 
     }
 
-    public void resetHeadingDepot(){
-        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))+135;
+    public void resetHeadingRight(){
+        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))+90;
+    }
+
+    public void resetHeadingBackward(){
+        headingOffset = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))-180;
     }
 
     public float getHeading (){

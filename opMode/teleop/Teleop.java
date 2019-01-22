@@ -131,7 +131,7 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad1.right_stick_button){
-            hyrule.gyro.resetHeading();
+            hyrule.gyro.resetHeadingForward();
         }
 
 
