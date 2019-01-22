@@ -71,21 +71,23 @@ public class RovrAuton extends BasicAuton {
         startingAtCrater = true;
         degrees = 0;
         paramFileName = "RovrAutonParams";
-        hmp.put("RAClaimSteps", new Param(11));
+        hmp.put("RAClaimSteps", new Param(13));
         setParamUpdateStep("RAClaimSteps", 1);
         hmp.put("RAC-StrafeTiles1", new Param(-2.3));
         setParamUpdateStep("RAC-StrafeTiles1", 0.1);
-        hmp.put("RAC-StrafeTiles2", new Param(-0.7));
+        hmp.put("RAC-StrafeTiles2", new Param(-1.4));
         setParamUpdateStep("RAC-StrafeTiles2", 0.1);
-        hmp.put("RAC-StrafeTiles3", new Param(0.2));
+        hmp.put("RAC-StrafeTiles3", new Param(0.1));
         setParamUpdateStep("RAC-StrafeTiles3", 0.05);
-        hmp.put("RAC-MoveTiles1", new Param(-1.8));
-        setParamUpdateStep("RAC-MoveTiles1", 0.1);
+        hmp.put("RAC-StrafeTiles4", new Param(0.4));
+        setParamUpdateStep("RAC-StrafeTiles4", 0.05);
+        hmp.put("RAC-MoveTiles1", new Param(-3.1));
+        setParamUpdateStep("RAC-MoveTiles1", 0.05);
         hmp.put("RAC-TurnToDump1", new Param(15));
         setParamUpdateStep("RAC-TurnToDump1", 0.05);
-        hmp.put("RAP-TilesToPark", new Param(3));
+        hmp.put("RAP-TilesToPark", new Param(5.1));
         setParamUpdateStep("RAP-TilesToPark", 0.1);
-        hmp.put("RAC-Move1", new Param(0.5));
+        hmp.put("RAC-Move1", new Param(0.9));
         setParamUpdateStep("RAC-Move1", 0.1);
         hmp.put("RA-Speed", new Param(0.5));
         setParamUpdateStep("RA-Speed", 0.05);
@@ -209,10 +211,10 @@ public class RovrAuton extends BasicAuton {
         if (steps <= 11 + 0.01) return;
         //turn back
         if (startingAtCrater == true) {
-            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -2*getPVal("RAC-StrafeTiles3"), this);
+            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -getPVal("RAC-StrafeTiles4"), this);
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), getPVal("RAC-StrafeTiles3"), this);
         } else {
-            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), 2*getPVal("RAC-StrafeTiles3"), this);
+            hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), getPVal("RAC-StrafeTiles4"), this);
             hyrule.driveTrain.strafeEnc(getPVal("RA-Speed"), -getPVal("RAC-StrafeTiles3"), this);
         }
         if (steps <= 12 + 0.01) return;
