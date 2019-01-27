@@ -88,13 +88,13 @@ public class DriveTrain extends Mechanism {
                 om.telemetry.addData("Gyro Heading: ", gyro.getHeading());
                 om.telemetry.update();*/
             }
-        }else if(degrees < -1){
-            holoDrive(0,0, -0.425);
-            while(om.opModeIsActive() && om.getRuntime() - startTime < 3 && turnedDegrees > degrees){
+        }else if(degrees < -1) {
+            holoDrive(0, 0, -0.425);
+            while (om.opModeIsActive() && om.getRuntime() - startTime < 3 && turnedDegrees > degrees) {
                 turnedDegrees = -gyro.getHeading() - startingDegrees;
-                if(turnedDegrees > 180)
+                if (turnedDegrees > 180)
                     turnedDegrees -= 360;
-                if(turnedDegrees < -180)
+                if (turnedDegrees < -180)
                     turnedDegrees += 360;
                 /*om.telemetry.addData("Starting Degrees: ", startingDegrees);
                 om.telemetry.addData("Current Degrees: ", currentDegrees);
@@ -102,8 +102,6 @@ public class DriveTrain extends Mechanism {
                 om.telemetry.addData("Gyro Heading: ", gyro.getHeading());
                 om.telemetry.update();*/
             }
-        }else{
-
         }
         stop();
     }
@@ -115,9 +113,9 @@ public class DriveTrain extends Mechanism {
         int startEnc = currentEnc;
         while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3*tiles))){
             if(tiles < 0)
-                holoDrive(0,-speed,0);
+                holoDrive(0.05*speed,-speed,0);
             else
-                holoDrive(0,speed,0);
+                holoDrive(-0.05*speed,speed,0);
             currentEnc = frontLeft.getCurrentPosition();
             om.telemetry.addData("EncValue ", currentEnc-startEnc);
             om.telemetry.update();
@@ -133,12 +131,66 @@ public class DriveTrain extends Mechanism {
         int startEnc = currentEnc;
         while(Math.abs(startEnc-currentEnc)*Math.sqrt(2)/2<totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3*tiles))){
             if(tiles < 0)
-                holoDrive(-speed,0,0);
+                holoDrive(-speed,0.1*speed,0);
             else
-                holoDrive(speed,0,0);
+                holoDrive(speed,-0.1*speed,0);
             currentEnc = frontLeft.getCurrentPosition();
             om.telemetry.addData("EncValue ", currentEnc-startEnc);
             om.telemetry.update();
+        }
+        stop();
+    }
+
+    public void diagonalEnc(double speed , double tiles , LinearOpMode om , boolean goingLeft){
+        double startTime = om.getRuntime();
+        int totalEnc = Math.abs((int)(tiles * getPVal("TileEnc")));
+        int currentEnc = 0;
+        if(goingLeft)
+            currentEnc = frontRight.getCurrentPosition();
+        else
+            currentEnc = frontLeft.getCurrentPosition();
+        int startEnc = currentEnc;
+        if(goingLeft) {
+            while (Math.abs(startEnc - currentEnc) * Math.sqrt(2) / 2 < totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3 * tiles))) {
+                holoDrive(-0.5 * speed, 0.5 * speed, 0);
+                currentEnc = frontRight.getCurrentPosition();
+                om.telemetry.addData("EncValue ", currentEnc - startEnc);
+                om.telemetry.update();
+            }
+        }else {
+            while (Math.abs(startEnc - currentEnc) * Math.sqrt(2) / 2 < totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3 * tiles))) {
+                holoDrive(0.5 * speed, 0.5 * speed, 0);
+                currentEnc = frontLeft.getCurrentPosition();
+                om.telemetry.addData("EncValue ", currentEnc - startEnc);
+                om.telemetry.update();
+            }
+        }
+        stop();
+    }
+
+    public void diagonalStrafeEnc(double speed , double tiles , LinearOpMode om , boolean goingForward){
+        double startTime = om.getRuntime();
+        int totalEnc = Math.abs((int)(tiles * getPVal("TileEnc")));
+        int currentEnc = 0;
+        if(goingForward)
+            currentEnc = frontLeft.getCurrentPosition();
+        else
+            currentEnc = frontRight.getCurrentPosition();
+        int startEnc = currentEnc;
+        if(goingForward) {
+            while (Math.abs(startEnc - currentEnc) * Math.sqrt(2) / 2 < totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3 * tiles))) {
+                holoDrive(speed, 0.15 * speed, 0);
+                currentEnc = frontLeft.getCurrentPosition();
+                om.telemetry.addData("EncValue ", currentEnc - startEnc);
+                om.telemetry.update();
+            }
+        }else {
+            while (Math.abs(startEnc - currentEnc) * Math.sqrt(2) / 2 < totalEnc && om.opModeIsActive() && (om.getRuntime() - startTime < Math.abs(3 * tiles))) {
+                holoDrive(speed, -0.15 * speed, 0);
+                currentEnc = frontRight.getCurrentPosition();
+                om.telemetry.addData("EncValue ", currentEnc - startEnc);
+                om.telemetry.update();
+            }
         }
         stop();
     }

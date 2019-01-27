@@ -16,7 +16,7 @@ public class Hanger extends Mechanism {
         super(n, hardwareMap);
         lock = getHwServo("lock");
         winch = getHwMotor("winch");
-        hmp.put(mName("LockVal"), new Param(0.5));
+        hmp.put(mName("LockVal"), new Param(0.55));
         hmp.put(mName("UnlockVal"), new Param(0.2));
         hmp.put(mName("EncToLand"),new Param(4700));
         hmp.get(mName("LockVal")).setStandardServo();
@@ -62,7 +62,7 @@ public class Hanger extends Mechanism {
 
     public void land(LinearOpMode om){
         liftRobot();
-        om.sleep(200);
+        om.sleep(400);
         unlock();
         om.sleep(333);
         dropRobot();

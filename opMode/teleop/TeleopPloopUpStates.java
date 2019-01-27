@@ -49,9 +49,9 @@ import rovr.robot.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name = "TeleOp: Ploop Up")
+@TeleOp(name = "TeleOp for States: Ploop Up")
 //@Disabled
-public class TeleopPloopUp extends OpMode {
+public class TeleopPloopUpStates extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     Robot hyrule ;
@@ -117,17 +117,17 @@ public class TeleopPloopUp extends OpMode {
             hyrule.gyro.resetHeadingBackward();
         }
 
-        if(gamepad1.right_trigger > 0.5){
+        if(gamepad2.right_trigger > 0.5){
             hyrule.intake.in();
-        }else if(gamepad1.right_bumper){
+        }else if(gamepad2.right_bumper){
             hyrule.intake.out();
         }else{
             hyrule.intake.stopPower();
         }
 
-        if(gamepad1.x){
+        if(gamepad2.x){
             hyrule.sorter.dumpBlock();
-        }else if(gamepad1.b){
+        }else if(gamepad2.b){
             hyrule.sorter.dumpBall();
         }else{
             hyrule.sorter.center();
@@ -151,21 +151,21 @@ public class TeleopPloopUp extends OpMode {
             hyrule.hanger.unlock();
         }
 
-        if (gamepad2.dpad_down) {
+        if (gamepad1.a) {
             hyrule.ploop.fullDown();
-        } else if (gamepad2.dpad_up) {
+        } else if (gamepad1.y) {
             hyrule.ploop.fullIn();
-        } else if(gamepad2.dpad_left){
+        } else if(gamepad1.x){
             hyrule.ploop.goToDump();
-        }else if(gamepad2.left_bumper){
+        }else if(gamepad1.left_bumper){
             hyrule.ploop.raise();
-        }else if(gamepad2.left_trigger > 0.5){
+        }else if(gamepad1.left_trigger > 0.5){
             hyrule.ploop.lower();
         }else{
             hyrule.ploop.stop();
         }
         //Not sure if this is official button
-        if(gamepad2.dpad_right && gamepad2.a){
+        if(gamepad1.right_trigger > 0.5 && gamepad1.right_bumper){
             hyrule.ploop.startingDown();
         }
 
