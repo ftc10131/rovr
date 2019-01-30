@@ -78,6 +78,10 @@ public class BasicAuton extends LinearOpMode {
     public void runMe(){
     }
 
+    public void initParams(){
+
+    }
+
     @Override
     public void runOpMode() {
         hyrule = new Robot(hardwareMap);
@@ -101,6 +105,9 @@ public class BasicAuton extends LinearOpMode {
 
             if(editing){
                 paramManager.respondToGamePadAndTelemetry(gamepad1, hmp,this);
+                if(gamepad1.right_bumper&&gamepad1.right_trigger>0.5&&gamepad1.left_bumper&&gamepad1.left_trigger>0.5){
+                    initParams();
+                }
             }
             telemetry.update();
         }

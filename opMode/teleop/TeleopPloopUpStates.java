@@ -56,6 +56,7 @@ public class TeleopPloopUpStates extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     Robot hyrule ;
     double driveSpeed;
+    double turnSpeed;
     boolean leftStickPressed;
 
     /*
@@ -69,6 +70,7 @@ public class TeleopPloopUpStates extends OpMode {
         hyrule.init(false);
         telemetry.addData("Status", "Initialized");
         driveSpeed = 1;
+        turnSpeed = 0.75;
         leftStickPressed = false;
     }
 
@@ -94,13 +96,16 @@ public class TeleopPloopUpStates extends OpMode {
     @Override
     public void loop() {
 
-        hyrule.driveTrain.holoGyro(gamepad1.left_stick_x * driveSpeed, -gamepad1.left_stick_y * driveSpeed, gamepad1.right_stick_x * 0.5,(int)hyrule.gyro.getHeading());
+        hyrule.driveTrain.holoGyro(gamepad1.left_stick_x * driveSpeed, -gamepad1.left_stick_y * driveSpeed, gamepad1.right_stick_x * turnSpeed,(int)hyrule.gyro.getHeading());
 
         if(gamepad1.left_stick_button && !leftStickPressed){
-            if(driveSpeed > 0.9)
+            if(driveSpeed > 0.9) {
                 driveSpeed = 0.5;
-            else if(driveSpeed < 0.6)
+                turnSpeed = 0.5;
+            }else if(driveSpeed < 0.6) {
                 driveSpeed = 1.0;
+                turnSpeed = 0.75;
+            }
         }
         leftStickPressed = gamepad1.left_stick_button;
 

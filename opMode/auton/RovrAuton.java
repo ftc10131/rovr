@@ -3,6 +3,7 @@ package rovr.opMode.auton;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.HashMap;
@@ -72,11 +73,18 @@ public class RovrAuton extends BasicAuton {
         startingAtCrater = true;
         degrees = 0;
         paramFileName = "RovrAutonParams";
+        initParams();
+
+        intakeDuringSampling=true;
+    }
+    @Override
+    public void initParams(){
+        super.initParams();
         hmp.put("RAClaimSteps", new Param(13));
         setParamUpdateStep("RAClaimSteps", 1);
         hmp.put("RAC-StrafeTiles1", new Param(-2.3));
         setParamUpdateStep("RAC-StrafeTiles1", 0.1);
-        hmp.put("RAC-StrafeTiles2", new Param(-1.3));
+        hmp.put("RAC-StrafeTiles2", new Param(-1.0));
         setParamUpdateStep("RAC-StrafeTiles2", 0.1);
         hmp.put("RAC-StrafeTiles3", new Param(0.1));
         setParamUpdateStep("RAC-StrafeTiles3", 0.05);
@@ -88,12 +96,10 @@ public class RovrAuton extends BasicAuton {
         setParamUpdateStep("RAC-TurnToDump1", 0.05);
         hmp.put("RAP-TilesToPark", new Param(3.4));
         setParamUpdateStep("RAP-TilesToPark", 0.1);
-        hmp.put("RAC-Move1", new Param(0.9));
-        setParamUpdateStep("RAC-Move1", 0.1);
+        hmp.put("RAC-Move1", new Param(0.75));
+        setParamUpdateStep("RAC-Move1", 0.05);
         hmp.put("RA-Speed", new Param(0.6));
         setParamUpdateStep("RA-Speed", 0.05);
-
-        intakeDuringSampling=true;
     }
 
     public void forwardTile() {

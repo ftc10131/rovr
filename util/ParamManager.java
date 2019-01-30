@@ -110,6 +110,12 @@ public class ParamManager {
         bPressed = g.b;
     }
 
+    public void setDefaultParameters(HashMap<String,Param> hmp){
+        for(String s : hmp.keySet()) {
+
+        }
+    }
+
     public void telemetryAll(OpMode o, HashMap<String,Param> hmp){
 
     }
